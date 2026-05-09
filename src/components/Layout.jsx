@@ -129,7 +129,7 @@ export function Header() {
               <MobileNavLink to="/" icon="dashboard" label="Dashboard" currentPath={currentPath} onClick={() => setMobileMenuOpen(false)} />
               <MobileNavLink to="/search" icon="search" label="Find Tasks" currentPath={currentPath} onClick={() => setMobileMenuOpen(false)} />
               <MobileNavLink to="/work-submission" icon="work_history" label="Active Tasks" currentPath={currentPath} onClick={() => setMobileMenuOpen(false)} />
-              <MobileNavLink to="/task-detail" icon="payments" label="Earnings" currentPath={currentPath} onClick={() => setMobileMenuOpen(false)} />
+              <MobileNavLink to="/payout-setup" icon="payments" label="Payouts" currentPath={currentPath} onClick={() => setMobileMenuOpen(false)} />
               <MobileNavLink to="/projects" icon="folder" label="My Projects" currentPath={currentPath} onClick={() => setMobileMenuOpen(false)} />
               <MobileNavLink to="/messages" icon="chat" label="Messages" currentPath={currentPath} onClick={() => setMobileMenuOpen(false)} badge={unreadCount} />
               <MobileNavLink to="/realtime-tasks" icon="bolt" label="Live Tasks" currentPath={currentPath} onClick={() => setMobileMenuOpen(false)} />
@@ -219,9 +219,9 @@ export function Sidebar() {
           <span className="material-symbols-outlined">work_history</span>
           <span className="text-label-caps">Active Tasks</span>
         </Link>
-        <Link id="tour-nav-earnings" className={getLinkClasses("/task-detail")} to="/task-detail">
+        <Link id="tour-nav-earnings" className={getLinkClasses("/payout-setup")} to="/payout-setup">
           <span className="material-symbols-outlined">payments</span>
-          <span className="text-label-caps">Earnings</span>
+          <span className="text-label-caps">Payouts</span>
         </Link>
         <Link id="tour-nav-realtime" className={getLinkClasses("/realtime-tasks")} to="/realtime-tasks">
           <span className="material-symbols-outlined">bolt</span>
