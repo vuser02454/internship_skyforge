@@ -100,6 +100,7 @@ export default function Settings() {
           setFullName(data.full_name || '');
           setBio(data.bio || '');
           setSkills(data.skills || []);
+        }
       }
     };
     fetchProfile();
