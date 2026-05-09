@@ -40,7 +40,7 @@ export function useUnreadMessages() {
 
     // Subscribe to new messages that are not sent by the user
     const channel = supabase
-      .channel('global-unread-messages')
+      .channel(`global-unread-messages-${Math.random()}`)
       .on(
         'postgres_changes',
         { event: 'INSERT', schema: 'public', table: 'task_messages' },

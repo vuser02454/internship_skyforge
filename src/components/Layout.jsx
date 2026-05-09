@@ -25,10 +25,9 @@ export function Header() {
     navigate('/login');
   };
 
-  // Get user initial for avatar
   const userInitial = user?.user_metadata?.full_name
     ? user.user_metadata.full_name.charAt(0).toUpperCase()
-    : user?.email?.charAt(0).toUpperCase() || 'U';
+    : user?.email?.charAt(0)?.toUpperCase() || 'U';
 
   return (
     <>
