@@ -56,8 +56,8 @@ export function Header() {
           <Link className={getHeaderLinkClasses("/messages")} to="/messages">Messages</Link>
         </nav>
 
-        <div className="flex items-center gap-4">
-          <div className="relative hidden sm:block">
+        <div className="flex items-center gap-2 sm:gap-4">
+          <div className="relative">
             <button className="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center">notifications</button>
             {unreadCount > 0 && (
               <span className="absolute -top-1 -right-1 bg-error text-on-error text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full animate-pulse shadow-sm">
@@ -132,7 +132,8 @@ export function Header() {
               <MobileNavLink to="/work-submission" icon="work_history" label="Active Tasks" currentPath={currentPath} onClick={() => setMobileMenuOpen(false)} />
               <MobileNavLink to="/task-detail" icon="payments" label="Earnings" currentPath={currentPath} onClick={() => setMobileMenuOpen(false)} />
               <MobileNavLink to="/projects" icon="folder" label="My Projects" currentPath={currentPath} onClick={() => setMobileMenuOpen(false)} />
-              <MobileNavLink to="/messages" icon="chat" label="Messages" currentPath={currentPath} onClick={() => setMobileMenuOpen(false)} />
+              <MobileNavLink to="/messages" icon="chat" label="Messages" currentPath={currentPath} onClick={() => setMobileMenuOpen(false)} badge={unreadCount} />
+              <MobileNavLink to="/realtime-tasks" icon="bolt" label="Live Tasks" currentPath={currentPath} onClick={() => setMobileMenuOpen(false)} />
               <MobileNavLink to="/settings" icon="settings" label="Settings" currentPath={currentPath} onClick={() => setMobileMenuOpen(false)} />
               
               <div className="h-px bg-outline-variant my-2"></div>
@@ -155,7 +156,7 @@ export function Header() {
   );
 }
 
-function MobileNavLink({ to, icon, label, currentPath, onClick }) {
+function MobileNavLink({ to, icon, label, currentPath, onClick, badge }) {
   const isActive = currentPath === to;
   return (
     <Link
@@ -168,7 +169,12 @@ function MobileNavLink({ to, icon, label, currentPath, onClick }) {
       }`}
     >
       <span className="material-symbols-outlined">{icon}</span>
-      <span className="text-label-caps">{label}</span>
+      <span className="text-label-caps flex-1">{label}</span>
+      {badge > 0 && (
+        <span className="bg-error text-on-error text-xs font-bold px-2 py-0.5 rounded-full">
+          {badge > 9 ? '9+' : badge}
+        </span>
+      )}
     </Link>
   );
 }
@@ -177,6 +183,7 @@ export function Sidebar() {
   const location = useLocation();
   const { user } = useAuth();
   const currentPath = location.pathname;
+  const unreadCount = useUnreadMessages();
 
   const isClient = user?.user_metadata?.user_role === 'client';
 
@@ -220,6 +227,15 @@ export function Sidebar() {
         <Link id="tour-nav-realtime" className={getLinkClasses("/realtime-tasks")} to="/realtime-tasks">
           <span className="material-symbols-outlined">bolt</span>
           <span className="text-label-caps">Live Tasks</span>
+        </Link>
+        <Link id="tour-nav-messages" className={getLinkClasses("/messages")} to="/messages">
+          <span className="material-symbols-outlined">chat</span>
+          <span className="text-label-caps flex-1">Messages</span>
+          {unreadCount > 0 && (
+            <span className="bg-error text-on-error text-xs font-bold px-2 py-0.5 rounded-full ml-auto">
+              {unreadCount > 9 ? '9+' : unreadCount}
+            </span>
+          )}
         </Link>
         <Link id="tour-nav-settings" className={getLinkClasses("/settings")} to="/settings">
           <span className="material-symbols-outlined">settings</span>
