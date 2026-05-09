@@ -142,6 +142,27 @@ export default function TaskDetail() {
 <p className="text-body-md font-body-md text-on-surface-variant whitespace-pre-wrap">
 {task.description}
 </p>
+
+{task.attachment_url && (
+  <div className="mt-6 pt-6 border-t border-outline-variant/30">
+    <h3 className="text-headline-sm font-bold text-on-surface mb-4">Project Attachment</h3>
+    <a 
+      href={task.attachment_url} 
+      target="_blank" 
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-3 p-4 rounded-xl border border-outline-variant bg-surface-container-lowest hover:bg-surface-container-low hover:border-primary transition-all group"
+    >
+      <div className="w-10 h-10 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center">
+        <span className="material-symbols-outlined">attach_file</span>
+      </div>
+      <div>
+        <p className="text-body-sm font-bold text-on-surface group-hover:text-primary transition-colors">View Attachment</p>
+        <p className="text-label-caps text-on-surface-variant">External Link</p>
+      </div>
+      <span className="material-symbols-outlined text-on-surface-variant ml-2 group-hover:text-primary transition-colors">open_in_new</span>
+    </a>
+  </div>
+)}
 </section>
 </div>
 

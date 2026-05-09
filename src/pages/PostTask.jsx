@@ -53,11 +53,44 @@ export default function PostTask() {
       return;
     }
 
+    // Handle Attachment Upload
+    let attachmentUrl = null;
+    if (attachment) {
+      const fileExt = attachment.name.split('.').pop();
+      const fileName = `${user.id}-${Date.now()}.${fileExt}`;
+      const filePath = `${user.id}/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('task_attachments')
+        .upload(filePath, attachment);
+
+      if (uploadError) {
+        setError("Failed to upload attachment: " + uploadError.message);
+        setLoading(false);
+        return;
+      }
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('task_attachments')
+        .getPublicUrl(filePath);
+        
+      attachmentUrl = publicUrl;
+    }
+
     // Insert into Supabase tasks table
     const { error: dbError } = await supabase
       .from('tasks')
       .insert([
-        { client_id: user.id, title, description, budget: Number(budget), status: 'open', category, deadline: deadline || null }
+        { 
+          client_id: user.id, 
+          title, 
+          description, 
+          budget: Number(budget), 
+          status: 'open', 
+          category, 
+          deadline: deadline || null,
+          attachment_url: attachmentUrl 
+        }
       ]);
 
     if (dbError) {
