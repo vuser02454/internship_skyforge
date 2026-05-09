@@ -64,9 +64,13 @@ export function Header() {
             <div className="relative">
               <button
                 onClick={() => setProfileMenuOpen(!profileMenuOpen)}
-                className="w-10 h-10 rounded-full border-2 border-primary shadow-sm flex items-center justify-center bg-primary-container text-on-primary-container font-bold text-lg hover:scale-105 transition-transform"
+                className="w-10 h-10 rounded-full border-2 border-primary shadow-sm flex items-center justify-center bg-primary-container text-on-primary-container font-bold text-lg hover:scale-105 transition-transform overflow-hidden"
               >
-                {userInitial}
+                {user?.user_metadata?.avatar_url ? (
+                  <img src={user.user_metadata.avatar_url} alt="Profile" className="w-full h-full object-cover" />
+                ) : (
+                  userInitial
+                )}
               </button>
 
               {profileMenuOpen && (
@@ -178,8 +182,12 @@ export function Sidebar() {
     <aside id="tour-sidebar" className="hidden lg:flex flex-col fixed left-0 top-16 h-[calc(100vh-64px)] p-stack-md bg-surface-container-low w-64 border-r border-outline-variant">
       <div className="mb-8 p-4 bg-surface rounded-xl shadow-ambient">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-lg bg-primary-container flex items-center justify-center text-on-primary-container">
-            <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>verified</span>
+          <div className="w-12 h-12 rounded-lg bg-primary-container flex items-center justify-center text-on-primary-container overflow-hidden">
+            {user?.user_metadata?.avatar_url ? (
+               <img src={user.user_metadata.avatar_url} alt="Profile" className="w-full h-full object-cover" />
+            ) : (
+               <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>verified</span>
+            )}
           </div>
           <div>
             <h3 className="font-headline-md text-body-md font-bold text-primary">{isClient ? 'Client Account' : 'Pro Freelancer'}</h3>

@@ -100,6 +100,9 @@ export default function Settings() {
           setFullName(data.full_name || '');
           setBio(data.bio || '');
           setSkills(data.skills || []);
+          if (data.avatar_url) {
+            setAvatar(data.avatar_url);
+          }
         }
       }
     };
@@ -156,9 +159,42 @@ export default function Settings() {
     setIsChangingEmail(false);
   };
 
-  const handleAvatarChange = (e) => {
+  const handleAvatarChange = async (e) => {
     if (e.target.files && e.target.files[0]) {
-      setAvatar(URL.createObjectURL(e.target.files[0]));
+      const file = e.target.files[0];
+      
+      // Temporarily set the preview for immediate feedback
+      setAvatar(URL.createObjectURL(file));
+      
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${user.id}-${Math.random()}.${fileExt}`;
+      const filePath = `${user.id}/${fileName}`;
+
+      // Upload to Storage
+      const { error: uploadError } = await supabase.storage
+        .from('avatars')
+        .upload(filePath, file);
+
+      if (uploadError) {
+        alert('Error uploading avatar: ' + uploadError.message);
+        return;
+      }
+
+      // Get public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('avatars')
+        .getPublicUrl(filePath);
+
+      // Save to database
+      await supabase.from('profiles').update({ avatar_url: publicUrl }).eq('id', user.id);
+      
+      // Update Auth session metadata
+      await supabase.auth.updateUser({ data: { avatar_url: publicUrl } });
+      
+      setAvatar(publicUrl);
     }
   };
 
