@@ -8,6 +8,9 @@ function TaskCard({ task, onAccept }) {
   const [accepting, setAccepting] = useState(false);
   const [error, setError] = useState('');
   const [accepted, setAccepted] = useState(false);
+  const [showFullDetails, setShowFullDetails] = useState(false);
+  
+  const isLongDescription = task.description && task.description.length > 120;
 
   const isOwner = user?.id === task.client_id;
   const isAccepted = task.status !== 'open';
@@ -48,8 +51,23 @@ function TaskCard({ task, onAccept }) {
       </div>
 
       {/* Content */}
-      <h3 className="text-headline-md font-headline-md text-primary mb-2 line-clamp-2">{task.title}</h3>
-      <p className="text-body-sm text-on-surface-variant flex-1 line-clamp-3 mb-4">{task.description}</p>
+      <h3 className={`text-headline-md font-headline-md text-primary mb-2 ${showFullDetails ? '' : 'line-clamp-2'}`}>{task.title}</h3>
+      <div className="flex-1 mb-4">
+        <p className={`text-body-sm text-on-surface-variant ${showFullDetails ? 'whitespace-pre-wrap' : 'line-clamp-3'}`}>
+          {task.description}
+        </p>
+        {isLongDescription && (
+          <button 
+            onClick={() => setShowFullDetails(!showFullDetails)} 
+            className="text-primary text-xs font-bold mt-2 hover:underline focus:outline-none flex items-center gap-1"
+          >
+            {showFullDetails ? 'Show Less' : 'Read Full Description'}
+            <span className="material-symbols-outlined text-[14px]">
+              {showFullDetails ? 'expand_less' : 'expand_more'}
+            </span>
+          </button>
+        )}
+      </div>
       
       {task.category && (
         <div className="mb-4">
