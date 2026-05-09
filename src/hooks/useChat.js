@@ -12,6 +12,10 @@ export function useChat(taskId) {
     if (!taskId) return;
     setLoading(true);
 
+    if ("Notification" in window && Notification.permission !== "denied" && Notification.permission !== "granted") {
+      Notification.requestPermission();
+    }
+
     const { data, error } = await supabase
       .from('task_messages')
       .select(`
@@ -78,6 +82,12 @@ export function useChat(taskId) {
             
             // Prevent duplicate delivery if already in state
             if (prev.some(m => m.id === newMessage.id)) return prev;
+
+            if (!isOurMessage && "Notification" in window && Notification.permission === "granted") {
+              new Notification(`New message from ${newMessage.sender.full_name}`, {
+                body: newMessage.message
+              });
+            }
 
             return [...prev, newMessage];
           });

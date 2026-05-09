@@ -42,7 +42,7 @@ export default function Messages() {
         
         <div className="bg-surface rounded-xl h-full flex flex-col md:flex-row shadow-sm border border-outline-variant/30 overflow-hidden">
           {/* Inbox Sidebar */}
-          <div className="w-full md:w-1/3 border-r border-outline-variant/30 h-full p-0 flex flex-col">
+          <div className={`${activeTaskId ? 'hidden md:flex' : 'flex'} w-full md:w-1/3 border-r border-outline-variant/30 h-full p-0 flex-col`}>
              <div className="p-4 border-b border-outline-variant/30">
                <input 
                  type="text" 
