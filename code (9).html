@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Settings | TaskForge</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed": "#d3e4fe",
+                      "background": "#f7f9fb",
+                      "surface-container-low": "#f2f4f6",
+                      "surface-bright": "#f7f9fb",
+                      "outline-variant": "#c7c5d4",
+                      "on-secondary-fixed-variant": "#00513c",
+                      "on-primary-fixed": "#04006d",
+                      "outline": "#777683",
+                      "on-error-container": "#93000a",
+                      "surface-container-highest": "#e0e3e5",
+                      "surface-dim": "#d8dadc",
+                      "surface-container": "#eceef0",
+                      "primary-fixed": "#e1e0ff",
+                      "secondary": "#006c50",
+                      "on-secondary-container": "#007054",
+                      "primary-fixed-dim": "#c0c1ff",
+                      "on-primary-container": "#9da1ff",
+                      "tertiary": "#19293d",
+                      "error-container": "#ffdad6",
+                      "on-surface": "#191c1e",
+                      "on-secondary": "#ffffff",
+                      "surface-container-high": "#e6e8ea",
+                      "secondary-fixed": "#50fdc7",
+                      "surface-tint": "#4f54b4",
+                      "on-error": "#ffffff",
+                      "on-background": "#191c1e",
+                      "surface-variant": "#e0e3e5",
+                      "on-primary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-tertiary-container": "#9aaac3",
+                      "inverse-surface": "#2d3133",
+                      "inverse-primary": "#c0c1ff",
+                      "surface": "#f7f9fb",
+                      "tertiary-container": "#2f3f54",
+                      "secondary-fixed-dim": "#1ee0ac",
+                      "on-tertiary": "#ffffff",
+                      "on-tertiary-fixed-variant": "#38485d",
+                      "primary-container": "#2e3192",
+                      "on-surface-variant": "#464652",
+                      "tertiary-fixed-dim": "#b7c8e1",
+                      "on-tertiary-fixed": "#0b1c30",
+                      "secondary-container": "#4cfac4",
+                      "error": "#ba1a1a",
+                      "primary": "#15157d",
+                      "inverse-on-surface": "#eff1f3",
+                      "on-secondary-fixed": "#002116",
+                      "on-primary-fixed-variant": "#373a9b"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "container-max": "1280px",
+                      "stack-lg": "24px",
+                      "stack-md": "16px",
+                      "stack-sm": "8px",
+                      "margin-mobile": "16px"
+              },
+              "fontFamily": {
+                      "body-sm": ["Inter"],
+                      "body-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "label-caps": ["Inter"],
+                      "budget-display": ["Plus Jakarta Sans"],
+                      "headline-lg": ["Plus Jakarta Sans"],
+                      "headline-md": ["Plus Jakarta Sans"]
+              },
+              "fontSize": {
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "budget-display": ["20px", {"lineHeight": "24px", "fontWeight": "700"}],
+                      "headline-lg": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .shadow-ambient {
+            box-shadow: 0px 4px 12px rgba(46, 49, 146, 0.05);
+        }
+        .card-transition {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .card-transition:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 8px 24px rgba(46, 49, 146, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md">
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-gutter h-16 max-w-container-max mx-auto bg-surface dark:bg-inverse-surface shadow-sm">
+<div class="flex items-center gap-8">
+<span class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed-dim">TaskForge</span>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors font-label-caps text-label-caps" href="#">Find Tasks</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors font-label-caps text-label-caps" href="#">My Projects</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors font-label-caps text-label-caps" href="#">Messages</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined p-2 text-on-surface-variant hover:bg-surface-container rounded-full">notifications</button>
+<button class="material-symbols-outlined p-2 text-on-surface-variant hover:bg-surface-container rounded-full">help_outline</button>
+<div class="h-8 w-px bg-outline-variant mx-2"></div>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-caps text-label-caps hover:opacity-90 active:scale-95 transition-all">Dashboard</button>
+<img alt="User Profile" class="w-10 h-10 rounded-full border-2 border-primary-fixed" data-alt="A professional headshot of a young male freelancer with a friendly expression. The lighting is soft and corporate, set against a blurred modern office background with subtle indigo and white tones to match a clean fintech aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRQ9H7cr-SJv2su6rfoEfRP8eLQgX406Xz1BLInx2v4yPFZ6pPFGeghSsM59mrCznsAysxjMfpT_Ec_ifwt20_l1Eh94NsrF2Tlse3pmIlT_nUEFP6kWFEy83ljNQDzQf0xEj7MUg1DOI8o7-YCA9jFkJOVqKjkkV1Y6VnwWGmObro0AN9nF64F9CILYlseODAZOvhK8IiBLI-RnL5gDZJyw9u9TFGp1oQ6aQ5bjr8u_WihH2NlySESBiytATCa0l4Ev9PThrw_w"/>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col fixed left-0 top-16 h-[calc(100vh-64px)] w-64 p-stack-md bg-surface-container-low dark:bg-surface-container-highest">
+<div class="flex flex-col gap-2 mb-8 p-4">
+<span class="text-headline-sm font-headline-sm font-bold text-primary dark:text-primary-fixed-dim">Pro Freelancer</span>
+<span class="text-label-caps font-label-caps text-secondary font-bold">Verified Status</span>
+</div>
+<nav class="flex flex-col gap-1 grow">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">dashboard</span>
+<span class="font-label-caps text-label-caps">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">work_history</span>
+<span class="font-label-caps text-label-caps">Active Tasks</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">payments</span>
+<span class="font-label-caps text-label-caps">Earnings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">bookmark</span>
+<span class="font-label-caps text-label-caps">Saved Jobs</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg font-semibold translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="font-label-caps text-label-caps">Settings</span>
+</a>
+</nav>
+<button class="mt-auto bg-primary text-on-primary w-full py-3 rounded-lg font-label-caps text-label-caps hover:shadow-lg transition-all">
+            Post a Task
+        </button>
+</aside>
+<!-- Main Content -->
+<main class="lg:ml-64 pt-24 pb-12 px-gutter min-h-screen">
+<div class="max-w-4xl mx-auto">
+<header class="mb-10">
+<h1 class="text-headline-lg font-headline-lg text-primary mb-2">Platform Settings</h1>
+<p class="text-body-md text-on-surface-variant">Manage your TaskForge profile, security, and payment preferences.</p>
+</header>
+<!-- Settings Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+<!-- Section 1: Profile Settings -->
+<section class="md:col-span-8 space-y-6">
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-ambient card-transition">
+<div class="flex items-center gap-6 mb-8">
+<div class="relative group">
+<img alt="Avatar" class="w-24 h-24 rounded-full object-cover border-4 border-surface-container-low" data-alt="A close-up shot of a professional worker's face for a profile image. The image is brightly lit, using natural light to emphasize a clean, modern aesthetic. The color palette is composed of soft neutrals and a touch of deep indigo in the clothing to align with the TaskForge brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_3Q7Tk0_eLDCwkj2hXWdOdkJqiDSklUNCSj4fDqKSvPxeAcRmZh2Ka6bvqGGCaKn1grhHjuLef9utsJgd9RYCjmbVsXeC1hJpXcbYrCkSPRL9ESeQwrqKz8N0EdoTkwxfz7BeXnQoK_3EAUUazS7WcYByXCT3rLDhAQBp2ePapv_WKDaCg6FV01b6diV-bC-DfyOqEhQt_u_GlZjwb-BHQJy06Ia3GfnajvU_KFVvQ0HP94ouSeGvf0P8px-XUoVm6gdhHUkqZQ"/>
+<button class="absolute bottom-0 right-0 bg-primary text-on-primary p-2 rounded-full shadow-lg hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-sm">photo_camera</span>
+</button>
+</div>
+<div>
+<h3 class="text-headline-md font-headline-md text-primary">Profile Details</h3>
+<p class="text-body-sm text-on-surface-variant">This information will be visible to task posters.</p>
+</div>
+</div>
+<div class="space-y-4">
+<div>
+<label class="block text-label-caps font-label-caps text-on-surface-variant mb-2">Full Name</label>
+<input class="w-full px-4 py-3 rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all" type="text" value="Arjun Malhotra"/>
+</div>
+<div>
+<label class="block text-label-caps font-label-caps text-on-surface-variant mb-2">Professional Bio</label>
+<textarea class="w-full px-4 py-3 rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all" rows="3">Specialist in UI/UX QA and technical documentation. Helped 50+ startups launch bug-free products.</textarea>
+</div>
+<div>
+<label class="block text-label-caps font-label-caps text-on-surface-variant mb-2">Skills</label>
+<div class="flex flex-wrap gap-2">
+<span class="bg-primary-fixed text-on-primary-fixed px-3 py-1 rounded-full text-label-caps font-label-caps flex items-center gap-1">UI Testing <button class="material-symbols-outlined text-[14px]">close</button></span>
+<span class="bg-primary-fixed text-on-primary-fixed px-3 py-1 rounded-full text-label-caps font-label-caps flex items-center gap-1">Copywriting <button class="material-symbols-outlined text-[14px]">close</button></span>
+<span class="bg-primary-fixed text-on-primary-fixed px-3 py-1 rounded-full text-label-caps font-label-caps flex items-center gap-1">Data Analysis <button class="material-symbols-outlined text-[14px]">close</button></span>
+<button class="border border-dashed border-outline text-on-surface-variant px-3 py-1 rounded-full text-label-caps font-label-caps hover:bg-surface-container transition-colors">+ Add Skill</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 3: Payments & Payouts (High Importance) -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-ambient card-transition">
+<div class="flex justify-between items-start mb-8">
+<div>
+<h3 class="text-headline-md font-headline-md text-primary">Payments &amp; Payouts</h3>
+<p class="text-body-sm text-on-surface-variant">Securely manage your earnings (₹100 - ₹1000 range).</p>
+</div>
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-caps font-label-caps flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">verified</span> Verified
+                            </span>
+</div>
+<div class="bg-surface p-4 rounded-lg border border-outline-variant mb-6 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="bg-surface-container-highest p-3 rounded-lg">
+<span class="material-symbols-outlined text-primary">account_balance</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">HDFC Bank •••• 8821</p>
+<p class="text-body-sm text-on-surface-variant">Primary Payout Account</p>
+</div>
+</div>
+<button class="text-primary font-label-caps text-label-caps hover:underline">Edit</button>
+</div>
+<div class="flex items-center gap-4 mb-8">
+<div class="flex-1">
+<label class="block text-label-caps font-label-caps text-on-surface-variant mb-2">UPI ID</label>
+<input class="w-full px-4 py-3 rounded-lg border border-outline-variant bg-surface outline-none" readonly="" type="text" value="arjun.malhotra@okaxis"/>
+</div>
+<button class="mt-6 bg-secondary text-on-secondary px-6 py-3 rounded-lg font-label-caps text-label-caps hover:opacity-90">Verify New</button>
+</div>
+<div class="flex items-center justify-between p-4 bg-tertiary-fixed rounded-lg">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary">info</span>
+<span class="text-body-sm text-on-tertiary-fixed-variant">Automatic payouts occur every Friday for balances over ₹500.</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Sidebar Sections: Security & Notifications -->
+<aside class="md:col-span-4 space-y-6">
+<!-- Section 2: Account & Security -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-ambient">
+<h3 class="text-headline-sm font-headline-sm text-primary mb-6">Security</h3>
+<div class="space-y-6">
+<div>
+<label class="block text-label-caps font-label-caps text-on-surface-variant mb-1">Email Address</label>
+<p class="text-body-md font-semibold mb-2">arjun.m@gmail.com</p>
+<button class="text-primary text-body-sm font-semibold hover:underline">Change Email</button>
+</div>
+<div class="h-px bg-outline-variant"></div>
+<div>
+<button class="w-full flex items-center justify-between text-on-surface hover:text-primary transition-colors">
+<span class="font-semibold">Update Password</span>
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+<div class="h-px bg-outline-variant"></div>
+<div class="flex items-center justify-between">
+<div>
+<p class="font-semibold text-on-surface">2FA Security</p>
+<p class="text-[10px] text-on-surface-variant">Recommended for security</p>
+</div>
+<div class="w-12 h-6 bg-secondary rounded-full relative cursor-pointer">
+<div class="absolute right-1 top-1 w-4 h-4 bg-white rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 4: Notifications -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-ambient">
+<h3 class="text-headline-sm font-headline-sm text-primary mb-6">Notifications</h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<span class="text-body-sm text-on-surface-variant">New Task Alerts</span>
+<input checked="" class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-body-sm text-on-surface-variant">Application Updates</span>
+<input checked="" class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-body-sm text-on-surface-variant">Payment Received</span>
+<input checked="" class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+</div>
+<div class="h-px bg-outline-variant my-4"></div>
+<div class="flex items-center justify-between">
+<span class="text-body-sm font-bold text-on-surface">Marketing Push</span>
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+</div>
+</div>
+</div>
+<!-- Action Card -->
+<div class="bg-primary p-6 rounded-xl text-on-primary">
+<p class="text-body-sm mb-4 opacity-90">Need to pause your account or delete your data permanently?</p>
+<button class="w-full py-2 bg-on-primary text-primary rounded-lg font-label-caps text-label-caps hover:bg-opacity-90 transition-all">Account Privacy</button>
+</div>
+</aside>
+</div>
+<!-- Global Footer Actions -->
+<div class="mt-12 flex justify-end gap-4">
+<button class="px-8 py-3 text-on-surface-variant font-label-caps text-label-caps hover:bg-surface-container rounded-lg transition-colors">Discard Changes</button>
+<button class="px-10 py-3 bg-primary text-on-primary font-label-caps text-label-caps rounded-lg shadow-lg hover:shadow-primary/20 active:scale-95 transition-all">Save Settings</button>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-stack-lg px-gutter flex flex-col md:flex-row justify-between items-center border-t border-outline-variant dark:border-outline bg-inverse-surface dark:bg-surface-container-lowest">
+<div class="mb-4 md:mb-0">
+<span class="text-headline-md font-headline-md font-bold text-on-primary">TaskForge</span>
+<p class="text-body-sm text-surface-variant mt-2">© 2024 TaskForge Inc. Secured by Institutional Trust.</p>
+</div>
+<div class="flex gap-8">
+<a class="text-label-caps font-label-caps text-surface-variant hover:text-secondary-fixed-dim transition-colors" href="#">Privacy Policy</a>
+<a class="text-label-caps font-label-caps text-surface-variant hover:text-secondary-fixed-dim transition-colors" href="#">Terms of Service</a>
+<a class="text-label-caps font-label-caps text-surface-variant hover:text-secondary-fixed-dim transition-colors" href="#">Trust &amp; Safety</a>
+<a class="text-label-caps font-label-caps text-surface-variant hover:text-secondary-fixed-dim transition-colors" href="#">Contact Support</a>
+</div>
+</footer>
+</body></html>

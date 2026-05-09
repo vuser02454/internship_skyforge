@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TaskForge - Professional Authentication</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-container": "#2e3192",
+                      "inverse-on-surface": "#eff1f3",
+                      "outline-variant": "#c7c5d4",
+                      "on-secondary-container": "#007054",
+                      "on-secondary": "#ffffff",
+                      "surface-container-high": "#e6e8ea",
+                      "on-background": "#191c1e",
+                      "surface-dim": "#d8dadc",
+                      "surface-container-highest": "#e0e3e5",
+                      "on-tertiary-fixed": "#0b1c30",
+                      "on-secondary-fixed-variant": "#00513c",
+                      "surface-bright": "#f7f9fb",
+                      "surface-tint": "#4f54b4",
+                      "on-primary": "#ffffff",
+                      "on-primary-fixed-variant": "#373a9b",
+                      "on-tertiary": "#ffffff",
+                      "tertiary": "#19293d",
+                      "inverse-primary": "#c0c1ff",
+                      "error": "#ba1a1a",
+                      "surface": "#f7f9fb",
+                      "on-error": "#ffffff",
+                      "secondary-fixed": "#50fdc7",
+                      "on-primary-container": "#9da1ff",
+                      "inverse-surface": "#2d3133",
+                      "surface-container": "#eceef0",
+                      "primary-fixed": "#e1e0ff",
+                      "primary": "#15157d",
+                      "on-primary-fixed": "#04006d",
+                      "tertiary-container": "#2f3f54",
+                      "surface-container-low": "#f2f4f6",
+                      "on-secondary-fixed": "#002116",
+                      "error-container": "#ffdad6",
+                      "on-error-container": "#93000a",
+                      "tertiary-fixed-dim": "#b7c8e1",
+                      "on-tertiary-container": "#9aaac3",
+                      "surface-container-lowest": "#ffffff",
+                      "outline": "#777683",
+                      "secondary": "#006c50",
+                      "secondary-container": "#4cfac4",
+                      "secondary-fixed-dim": "#1ee0ac",
+                      "tertiary-fixed": "#d3e4fe",
+                      "surface-variant": "#e0e3e5",
+                      "background": "#f7f9fb",
+                      "primary-fixed-dim": "#c0c1ff",
+                      "on-surface-variant": "#464652",
+                      "on-tertiary-fixed-variant": "#38485d",
+                      "on-surface": "#191c1e"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-md": "16px",
+                      "stack-lg": "24px",
+                      "stack-sm": "8px",
+                      "gutter": "24px",
+                      "container-max": "1280px",
+                      "margin-mobile": "16px"
+              },
+              "fontFamily": {
+                      "label-caps": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "headline-md": ["Plus Jakarta Sans"],
+                      "headline-lg": ["Plus Jakarta Sans"],
+                      "body-md": ["Inter"],
+                      "budget-display": ["Plus Jakarta Sans"],
+                      "body-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "headline-lg": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "budget-display": ["20px", {"lineHeight": "24px", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .auth-card-shadow {
+            box-shadow: 0px 4px 12px rgba(46, 49, 146, 0.05);
+        }
+        .image-gradient-overlay {
+            background: linear-gradient(135deg, rgba(21, 21, 125, 0.85) 0%, rgba(0, 108, 80, 0.4) 100%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col md:flex-row overflow-x-hidden">
+<!-- Left Side: Atmospheric Brand Visual -->
+<section class="relative w-full md:w-1/2 h-64 md:h-screen flex flex-col justify-center items-center p-gutter overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img alt="Professional Modern Workspace" class="w-full h-full object-cover" data-alt="A highly professional, sun-drenched modern office space with clean glass partitions and minimalist furniture. The atmosphere is calm and focused, utilizing a crisp light-mode aesthetic with Deep Indigo and Mint Green accents visible in the decor. High-performance micro-tasking is suggested by sleek dual-monitor setups and professional gadgets, all captured in a soft-focus, cinematic lighting style that emphasizes institutional trust and technological speed." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBX6fKrFiQoia110Ufc06fDPHn0zmkEuRbATcEmjwsIh9lkx1UXAxYx_HdVffRc4ipMeCWtLv2rJUN0PAAWN1XqGyemnFR2gaibCkeCKD0si1eka0wXbSRpjaXAdrrIW5Kr-tickFEvdCMXE-PrVtvlikZyEaMVekw5rYTMRR7I-Hc3CjpQFawJtiv_aTiFwBhr3rizAJGPGQOhQhWzJlLxM-WGYsrlRohJoowJYqx72CpDea08gsVVbaSYC3g4nEeCU-luaMt9GQ"/>
+<div class="absolute inset-0 image-gradient-overlay mix-blend-multiply"></div>
+</div>
+<div class="relative z-10 flex flex-col items-center text-center max-w-md">
+<div class="mb-stack-lg">
+<span class="text-on-primary font-headline-lg text-headline-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-[40px]" style="font-variation-settings: 'FILL' 1;">rocket_launch</span>
+                    TaskForge
+                </span>
+</div>
+<h1 class="text-on-primary font-headline-md text-headline-md mb-stack-md">Fueling the Micro-Task Economy</h1>
+<p class="text-on-primary/80 font-body-md text-body-md px-4">The secure bridge between institutional quality requirements and high-performance freelance talent.</p>
+</div>
+<div class="absolute bottom-8 left-8 z-10 hidden md:block">
+<div class="flex gap-4 items-center">
+<div class="flex -space-x-3">
+<img alt="Avatar" class="h-10 w-10 rounded-full border-2 border-primary-container" data-alt="Close-up portrait of a professional female freelancer with a confident smile, set against a soft blurred office background, matching the corporate modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAi_IDzCnr9CkgQa5gsNMcpv7wK6tODlRa_99_NVIo7sKoLiqYQau00C5ZVTPrGvHudwtpI6MMh1XRwENmAdGXoL-aHRx2_DKWTXKD3FCNWGwL0XH_tbF6Zig3fbc4t86BEXPPvVBvfNRCfIV4cFaIEhou1SBGzR33xVuk-1ld953OokOxqO7Avb4LCYgp4MOTU5uSVRSk47nB6XnIcIJTt8zjLD3-Uh8fjVsQzCqKTezrl2diCZmnD7d5JQ4BsCDWzJ2QGzWldJg"/>
+<img alt="Avatar" class="h-10 w-10 rounded-full border-2 border-primary-container" data-alt="Close-up portrait of a diverse male professional in a clean white shirt, looking focused and determined in a high-tech corporate setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9YppcreFzFtIjfgyBfCw9zgTFxCE4a0jyy1x7Dxd2B4rAP3p426G2BLCMpijkL2ucfA4zyoTcUTk0rWi8L3btBQjAP01iXNQi6FjwmUlkxwudHWwkuq9BmyP6xWeBVKZGAswzr9T4jag_BFPFQtBWAjXvhr3q4qKb4E0TrnBmET99FO6gXJ3d_MiMd4EP8U1j-AizB30mqI9TZAJ-_nPMQ5x5147AEv9ecadHPYfP8JVLYaURaB2BKshxl74k1uFGnf7oFcW1yQ"/>
+<img alt="Avatar" class="h-10 w-10 rounded-full border-2 border-primary-container" data-alt="Close-up portrait of a young professional woman with glasses, radiating competence and speed, ideal for a micro-tasking platform branding." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHm425bK6z0dsFL0SaC_YS6dcIV1vBleF21qrfqiPmPkeNjm-sPrT9HJbN9Eo40t7XTkBJ_T8eUaZslpNphVvgIgitIFcStQ_VizoTW1xoidSDjwBtB5UAKSQXhE9lFV0gupG9xpbHz-eZCGY8aJ7_i30E6xbv-3YTiK22i6OhwYAMa8WwuBRVxrsMGpfiSW-4sDFWRnD4tGvZhP7nJ4hQqYLRoQ94hEfOLCIBYKHgHquplSGKr4mKeQQwEZgQWQqYhcZlEcYOOg"/>
+</div>
+<p class="text-on-primary font-label-caps text-label-caps">Trusted by 12,000+ Professionals</p>
+</div>
+</div>
+</section>
+<!-- Right Side: Authentication Form -->
+<main class="w-full md:w-1/2 flex items-center justify-center p-gutter bg-surface">
+<div class="w-full max-w-[440px]">
+<!-- Header & Tabs -->
+<div class="mb-stack-lg">
+<h2 class="font-headline-md text-headline-md text-primary mb-stack-sm">Welcome back</h2>
+<p class="text-on-surface-variant font-body-sm text-body-sm">Access your workspace and track your task progress.</p>
+</div>
+<!-- Toggle Tabs -->
+<div class="flex bg-surface-container-low p-1 rounded-xl mb-stack-lg">
+<button class="flex-1 py-2 text-label-caps font-label-caps rounded-lg bg-surface auth-card-shadow text-primary transition-all">Login</button>
+<button class="flex-1 py-2 text-label-caps font-label-caps rounded-lg text-on-surface-variant hover:text-primary transition-colors">Sign Up</button>
+</div>
+<!-- Social Auth -->
+<div class="grid grid-cols-2 gap-4 mb-stack-lg">
+<button class="flex items-center justify-center gap-2 px-4 py-3 border border-outline-variant rounded-lg hover:bg-surface-container-high transition-colors text-on-surface font-label-caps text-label-caps">
+<img alt="Google" class="w-5 h-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBX-AyCu7VjylH9Y3JRi-3ncFByK3qkl6T4A9eUPJ719qxP8s9f_w_Kf-l0jpO23e3IsmCCm3TxlfILuagzXiKVAM3N2aUIG3EH3IKDGh5KorpszQkS96NtGvyu4oGbeBkyX7Pn3wlY79tcGh52iSqJtsXG04DH0m39vdpLdQpg3yYmPHuJz-OkINmYMmMloSBKYoZGHGToPSN04bApfgJW-9itAXoLSSXSKub1eZzDaqycBfzlLGiis4oL61Qtd3I-VtTnDQQJ7w"/>
+                    Google
+                </button>
+<button class="flex items-center justify-center gap-2 px-4 py-3 border border-outline-variant rounded-lg hover:bg-surface-container-high transition-colors text-on-surface font-label-caps text-label-caps">
+<svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"></path></svg>
+                    GitHub
+                </button>
+</div>
+<div class="relative flex items-center justify-center mb-stack-lg">
+<div class="absolute inset-0 flex items-center"><div class="w-full border-t border-outline-variant"></div></div>
+<span class="relative bg-surface px-4 text-label-caps text-on-surface-variant">Or continue with</span>
+</div>
+<!-- Role Selector (Typically for Sign Up, hidden or semi-visible here for design richness) -->
+<div class="mb-stack-lg">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-2">Joining as</p>
+<div class="grid grid-cols-2 gap-3">
+<label class="relative flex cursor-pointer rounded-xl border border-secondary p-3 focus:outline-none bg-secondary/5">
+<input checked="" class="sr-only" name="role" type="radio" value="freelancer"/>
+<span class="flex flex-col">
+<span class="text-secondary font-label-caps text-[11px] uppercase">Freelancer</span>
+<span class="text-primary font-body-sm font-semibold">I want to earn</span>
+</span>
+<span class="material-symbols-outlined text-secondary ml-auto" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</label>
+<label class="relative flex cursor-pointer rounded-xl border border-outline-variant p-3 focus:outline-none hover:bg-surface-container transition-colors">
+<input class="sr-only" name="role" type="radio" value="client"/>
+<span class="flex flex-col">
+<span class="text-on-surface-variant font-label-caps text-[11px] uppercase">Client</span>
+<span class="text-on-surface font-body-sm font-semibold">I want to hire</span>
+</span>
+</label>
+</div>
+</div>
+<!-- Form Fields -->
+<form action="#" class="space-y-stack-md">
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-stack-sm" for="email">Work Email</label>
+<input class="w-full h-12 px-4 rounded-lg border border-outline focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-outline-variant text-on-surface" id="email" name="email" placeholder="name@company.com" type="email"/>
+</div>
+<div>
+<div class="flex justify-between mb-stack-sm">
+<label class="block font-label-caps text-label-caps text-on-surface-variant" for="password">Password</label>
+<a class="text-label-caps text-label-caps text-primary hover:underline" href="#">Forgot Password?</a>
+</div>
+<div class="relative">
+<input class="w-full h-12 px-4 rounded-lg border border-outline focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-outline-variant text-on-surface" id="password" name="password" placeholder="••••••••" type="password"/>
+<button class="absolute right-3 top-3 text-on-surface-variant material-symbols-outlined" type="button">visibility</button>
+</div>
+</div>
+<div class="flex items-center gap-2 py-2">
+<input class="w-4 h-4 rounded border-outline text-primary focus:ring-primary" id="remember" type="checkbox"/>
+<label class="font-body-sm text-body-sm text-on-surface-variant" for="remember">Remember me for 30 days</label>
+</div>
+<button class="w-full h-12 bg-primary text-on-primary font-label-caps text-label-caps rounded-lg hover:shadow-lg transition-all active:scale-95 duration-150" type="submit">
+                    Sign In to Dashboard
+                </button>
+</form>
+<!-- Bottom Links -->
+<div class="mt-stack-lg pt-stack-lg border-t border-outline-variant">
+<p class="text-center font-body-sm text-body-sm text-on-surface-variant">
+                    By continuing, you agree to our 
+                    <a class="text-primary hover:underline font-semibold" href="#">Terms of Service</a> 
+                    and 
+                    <a class="text-primary hover:underline font-semibold" href="#">Privacy Policy</a>.
+                </p>
+<div class="mt-8 flex justify-center gap-6">
+<span class="flex items-center gap-1 text-[12px] text-on-surface-variant/60 font-label-caps">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+                        SSL Secured
+                    </span>
+<span class="flex items-center gap-1 text-[12px] text-on-surface-variant/60 font-label-caps">
+<span class="material-symbols-outlined text-[16px]">verified_user</span>
+                        GDPR Compliant
+                    </span>
+</div>
+</div>
+</div>
+</main>
+<!-- Global Layout Note: Navigation shell suppressed for transactional flow per Design System mandate -->
+</body></html>

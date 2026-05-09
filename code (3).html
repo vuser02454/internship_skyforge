@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TaskForge - No Tasks Found</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    h1, h2, h3, .font-headline {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+  </style>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary-container": "#2e3192",
+            "on-background": "#191c1e",
+            "primary-fixed-dim": "#c0c1ff",
+            "on-secondary": "#ffffff",
+            "surface-container": "#eceef0",
+            "outline": "#777683",
+            "on-surface": "#191c1e",
+            "on-error": "#ffffff",
+            "on-secondary-container": "#007054",
+            "inverse-on-surface": "#eff1f3",
+            "on-secondary-fixed-variant": "#00513c",
+            "on-tertiary": "#ffffff",
+            "surface-container-low": "#f2f4f6",
+            "tertiary-fixed-dim": "#b7c8e1",
+            "surface-container-lowest": "#ffffff",
+            "on-primary-fixed": "#04006d",
+            "on-primary-container": "#9da1ff",
+            "primary-fixed": "#e1e0ff",
+            "surface-dim": "#d8dadc",
+            "on-primary": "#ffffff",
+            "surface-container-high": "#e6e8ea",
+            "surface-variant": "#e0e3e5",
+            "surface-container-highest": "#e0e3e5",
+            "on-secondary-fixed": "#002116",
+            "secondary-fixed": "#50fdc7",
+            "on-primary-fixed-variant": "#373a9b",
+            "error": "#ba1a1a",
+            "on-tertiary-fixed": "#0b1c30",
+            "error-container": "#ffdad6",
+            "surface": "#f7f9fb",
+            "primary": "#15157d",
+            "inverse-primary": "#c0c1ff",
+            "tertiary": "#19293d",
+            "on-tertiary-fixed-variant": "#38485d",
+            "secondary": "#006c50",
+            "tertiary-fixed": "#d3e4fe",
+            "surface-bright": "#f7f9fb",
+            "background": "#f7f9fb",
+            "inverse-surface": "#2d3133",
+            "secondary-fixed-dim": "#1ee0ac",
+            "on-surface-variant": "#464652",
+            "surface-tint": "#4f54b4",
+            "outline-variant": "#c7c5d4",
+            "tertiary-container": "#2f3f54",
+            "on-error-container": "#93000a",
+            "secondary-container": "#4cfac4",
+            "on-tertiary-container": "#9aaac3"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "stack-sm": "8px",
+            "margin-mobile": "16px",
+            "stack-md": "16px",
+            "gutter": "24px",
+            "stack-lg": "24px",
+            "container-max": "1280px"
+          },
+          "fontFamily": {
+            "headline-md": ["Plus Jakarta Sans"],
+            "label-caps": ["Inter"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "body-md": ["Inter"],
+            "budget-display": ["Plus Jakarta Sans"],
+            "body-sm": ["Inter"],
+            "body-lg": ["Inter"]
+          },
+          "fontSize": {
+            "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+            "headline-lg": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+            "budget-display": ["20px", {"lineHeight": "24px", "fontWeight": "700"}],
+            "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-gutter h-16 max-w-container-max mx-auto bg-surface shadow-sm">
+<div class="flex items-center gap-stack-lg">
+<span class="text-headline-md font-headline-md font-bold text-primary">TaskForge</span>
+<nav class="hidden md:flex items-center gap-stack-lg ml-gutter">
+<a class="text-primary border-b-2 border-primary pb-1 font-bold text-label-caps" href="#">Find Tasks</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors text-label-caps" href="#">My Projects</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors text-label-caps" href="#">Messages</a>
+</nav>
+</div>
+<div class="flex items-center gap-stack-md">
+<div class="hidden md:flex items-center bg-surface-container rounded-full px-4 py-1.5 border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm w-48" placeholder="Search tasks..." type="text" value="Senior Blockchain Architect"/>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary p-2">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary p-2">help_outline</button>
+<div class="h-8 w-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container text-label-caps font-bold">JD</div>
+</div>
+</header>
+<div class="flex flex-1 pt-16">
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col fixed left-0 top-16 h-[calc(100vh-64px)] p-stack-md bg-surface-container-low w-64">
+<div class="px-4 py-stack-lg mb-stack-md">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary">person</span>
+</div>
+<div>
+<p class="text-body-sm font-semibold">Pro Freelancer</p>
+<p class="text-[10px] text-on-secondary-container bg-secondary-container px-1.5 py-0.5 rounded inline-block font-bold">Verified Status</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant transition-colors rounded-lg text-label-caps" href="#">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
+        </a>
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container rounded-lg font-semibold translate-x-1 transition-transform text-label-caps" href="#">
+<span class="material-symbols-outlined">work_history</span> Active Tasks
+        </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant transition-colors rounded-lg text-label-caps" href="#">
+<span class="material-symbols-outlined">payments</span> Earnings
+        </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant transition-colors rounded-lg text-label-caps" href="#">
+<span class="material-symbols-outlined">bookmark</span> Saved Jobs
+        </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant transition-colors rounded-lg text-label-caps" href="#">
+<span class="material-symbols-outlined">settings</span> Settings
+        </a>
+</nav>
+<button class="mt-auto bg-primary text-on-primary py-3 rounded-xl font-bold hover:shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">add</span> Post a Task
+      </button>
+</aside>
+<!-- Main Content (Canvas) -->
+<main class="flex-1 lg:ml-64 p-gutter max-w-7xl mx-auto w-full">
+<!-- Search Context Bar -->
+<div class="mb-stack-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<h1 class="text-headline-lg font-headline-lg text-primary">Task Marketplace</h1>
+<p class="text-body-md text-on-surface-variant">Showing results for <span class="font-bold text-on-surface">"Senior Blockchain Architect"</span></p>
+</div>
+<div class="flex items-center gap-stack-sm">
+<button class="flex items-center gap-2 px-4 py-2 border border-outline-variant rounded-lg bg-surface text-body-sm hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-body-md">filter_list</span> Filters
+          </button>
+<button class="flex items-center gap-2 px-4 py-2 border border-outline-variant rounded-lg bg-surface text-body-sm hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-body-md">sort</span> Relevant
+          </button>
+</div>
+</div>
+<!-- Empty State Section (Replaces Live Tasks Grid) -->
+<div class="bg-surface rounded-xl shadow-[0px_4px_12px_rgba(46,49,146,0.05)] border border-outline-variant/30 flex flex-col items-center justify-center py-20 px-gutter text-center min-h-[500px]">
+<div class="relative mb-8">
+<div class="absolute -inset-4 bg-primary/5 rounded-full blur-2xl"></div>
+<div class="w-48 h-48 bg-surface-container-low rounded-full flex items-center justify-center relative border border-outline-variant/20">
+<img alt="No tasks found illustration" class="w-32 h-32 object-contain opacity-80 mix-blend-multiply" data-alt="A sophisticated, high-end 3D digital illustration of a stylized magnifying glass hovering over an empty, clean digital workspace. The scene is illuminated by soft, cinematic indigo and mint green lighting, creating a professional fintech-inspired atmosphere. Minimalist geometric floating shapes and faint data lines suggest a high-tech search environment. The style is clean, corporate modern, and corporate Memphis inspired but with more depth and premium textures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1UQOJ-E6WBlRjnD8a1j9cKlIL5JuMEHd2MEgbifuUuasSMsOxIHLJ7-lyDasG8nKAISzVK6sjqK_Wz7f0f3kSv39-tW8s1ZPhOcLrjEopPM8X_tOXN3mMPBIDkReomr4LLVmISHkAR07Sovuhl0CQThQrtMyMESaYzCx2I4Dp_gwHaJJR_72XX_3mlq9oEhcOcgNyA1zsb7Ax1u1Ve3cuSySJZwA_9Bfn2izYllHEbSM8rJ15AicnnrWE_Ucp_ikhcFFubCE2nA"/>
+<div class="absolute -bottom-2 -right-2 bg-secondary text-on-secondary w-12 h-12 rounded-full flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-headline-md">search_off</span>
+</div>
+</div>
+</div>
+<h2 class="text-headline-md font-headline-md text-primary mb-stack-sm">We couldn't find any tasks</h2>
+<p class="text-body-lg text-on-surface-variant max-w-md mx-auto mb-stack-lg leading-relaxed">
+          We couldn't find any tasks matching <span class="italic font-medium">"Senior Blockchain Architect"</span>. Try adjusting your search keywords or broadening your filters to see more opportunities.
+        </p>
+<div class="flex flex-col sm:flex-row items-center gap-stack-md">
+<button class="bg-primary text-on-primary px-8 py-3 rounded-xl font-bold text-body-md hover:shadow-lg transition-all active:scale-95 flex items-center gap-2">
+            Clear Search
+          </button>
+<button class="bg-surface-container-high text-on-surface px-8 py-3 rounded-xl font-bold text-body-md hover:bg-surface-variant transition-all border border-outline-variant/30">
+            Browse All Categories
+          </button>
+</div>
+<div class="mt-12 w-full max-w-2xl pt-12 border-t border-outline-variant/20">
+<p class="text-label-caps text-outline mb-stack-md uppercase tracking-widest">Recommended Keywords</p>
+<div class="flex flex-wrap justify-center gap-stack-sm">
+<button class="px-4 py-2 bg-surface-container-low border border-outline-variant/40 rounded-full text-body-sm text-on-surface hover:border-primary hover:text-primary transition-colors">Blockchain Developer</button>
+<button class="px-4 py-2 bg-surface-container-low border border-outline-variant/40 rounded-full text-body-sm text-on-surface hover:border-primary hover:text-primary transition-colors">Web3 Engineer</button>
+<button class="px-4 py-2 bg-surface-container-low border border-outline-variant/40 rounded-full text-body-sm text-on-surface hover:border-primary hover:text-primary transition-colors">Smart Contract Audit</button>
+<button class="px-4 py-2 bg-surface-container-low border border-outline-variant/40 rounded-full text-body-sm text-on-surface hover:border-primary hover:text-primary transition-colors">Fintech Security</button>
+<button class="px-4 py-2 bg-surface-container-low border border-outline-variant/40 rounded-full text-body-sm text-on-surface hover:border-primary hover:text-primary transition-colors">Solidity</button>
+</div>
+</div>
+</div>
+<!-- Secondary Engagement Section -->
+<section class="mt-gutter grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="bg-primary-container p-stack-lg rounded-xl text-on-primary-container flex items-center gap-gutter">
+<div class="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[32px]">notifications_active</span>
+</div>
+<div>
+<h3 class="font-headline-md text-body-lg font-bold mb-1">Set a Job Alert</h3>
+<p class="text-body-sm opacity-80 mb-stack-md">We'll notify you as soon as a task matching this search becomes available.</p>
+<button class="bg-secondary-fixed text-on-secondary-fixed px-4 py-1.5 rounded-lg text-label-caps font-bold">Create Alert</button>
+</div>
+</div>
+<div class="bg-secondary-container p-stack-lg rounded-xl text-on-secondary-container flex items-center gap-gutter">
+<div class="w-16 h-16 rounded-full bg-black/5 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[32px]">person_search</span>
+</div>
+<div>
+<h3 class="font-headline-md text-body-lg font-bold mb-1">Update Your Profile</h3>
+<p class="text-body-sm opacity-80 mb-stack-md">Let top-tier clients find you instead. Improve your visibility score.</p>
+<button class="bg-primary text-on-primary px-4 py-1.5 rounded-lg text-label-caps font-bold">Go to Profile</button>
+</div>
+</div>
+</section>
+</main>
+</div>
+<!-- Footer -->
+<footer class="w-full py-stack-lg px-gutter flex flex-col md:flex-row justify-between items-center border-t border-outline-variant bg-inverse-surface">
+<div class="mb-stack-md md:mb-0">
+<span class="text-headline-md font-headline-md font-bold text-on-primary">TaskForge</span>
+<p class="text-body-sm text-surface-variant mt-2 font-label-caps">© 2024 TaskForge Inc. Secured by Institutional Trust.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-gutter">
+<a class="text-surface-variant hover:text-secondary-fixed-dim transition-colors text-label-caps" href="#">Privacy Policy</a>
+<a class="text-surface-variant hover:text-secondary-fixed-dim transition-colors text-label-caps" href="#">Terms of Service</a>
+<a class="text-surface-variant hover:text-secondary-fixed-dim transition-colors text-label-caps" href="#">Trust &amp; Safety</a>
+<a class="text-surface-variant hover:text-secondary-fixed-dim transition-colors text-label-caps font-bold text-secondary-fixed" href="#">Contact Support</a>
+</div>
+</footer>
+</body></html>

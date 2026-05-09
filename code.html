@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TaskForge - Freelancer Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        h1, h2, h3, .font-headline {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#50fdc7",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "inverse-surface": "#2d3133",
+                        "secondary": "#006c50",
+                        "surface-bright": "#f7f9fb",
+                        "on-secondary-container": "#007054",
+                        "surface-container": "#eceef0",
+                        "surface-variant": "#e0e3e5",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "tertiary": "#19293d",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#e1e0ff",
+                        "on-surface": "#191c1e",
+                        "outline-variant": "#c7c5d4",
+                        "on-secondary-fixed-variant": "#00513c",
+                        "on-secondary-fixed": "#002116",
+                        "surface-dim": "#d8dadc",
+                        "secondary-container": "#4cfac4",
+                        "secondary-fixed-dim": "#1ee0ac",
+                        "primary": "#15157d",
+                        "tertiary-container": "#2f3f54",
+                        "background": "#f7f9fb",
+                        "inverse-primary": "#c0c1ff",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "on-tertiary-container": "#9aaac3",
+                        "on-primary-container": "#9da1ff",
+                        "on-surface-variant": "#464652",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-primary-fixed": "#04006d",
+                        "on-error": "#ffffff",
+                        "on-background": "#191c1e",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "on-tertiary-fixed": "#0b1c30",
+                        "on-tertiary": "#ffffff",
+                        "primary-container": "#2e3192",
+                        "surface-container-low": "#f2f4f6",
+                        "surface-container-high": "#e6e8ea",
+                        "surface-tint": "#4f54b4",
+                        "surface": "#f7f9fb",
+                        "outline": "#777683",
+                        "on-primary-fixed-variant": "#373a9b",
+                        "tertiary-fixed": "#d3e4fe"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "container-max": "1280px",
+                        "stack-lg": "24px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Inter"],
+                        "budget-display": ["Plus Jakarta Sans"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "budget-display": ["20px", {"lineHeight": "24px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface">
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-gutter h-16 bg-surface shadow-sm max-w-container-max mx-auto">
+<div class="flex items-center gap-stack-md">
+<span class="text-headline-md font-headline-md font-bold text-primary">TaskForge</span>
+<div class="hidden md:flex items-center ml-8 gap-8">
+<a class="text-primary border-b-2 border-primary pb-1 font-bold font-label-caps text-label-caps" href="#">Find Tasks</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-caps text-label-caps" href="#">My Projects</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-caps text-label-caps" href="#">Messages</a>
+</div>
+</div>
+<div class="flex items-center gap-stack-md">
+<div class="hidden md:flex items-center bg-surface-container rounded-full px-4 py-1.5 mr-4">
+<span class="material-symbols-outlined text-outline text-[20px] mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm w-48" placeholder="Search tasks..." type="text"/>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant p-2 hover:bg-surface-variant rounded-full transition-colors">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant p-2 hover:bg-surface-variant rounded-full transition-colors">help_outline</button>
+<div class="h-8 w-8 rounded-full bg-primary-fixed flex items-center justify-center overflow-hidden ml-2 border border-outline-variant">
+<img alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJD5zN8HMasY7ucoxlEfbyfhAVcaV7FFtnJPEjtOfwk9mT9l952ZFT1UvGlKYGOEnidBu0f3_Zmtku8aaUxoBisMGhbNt-IySDW6m87p5X_8UpbTvuDyJ5MXgzLpoZPLrNZNCQtgVnVEGZBDJ3PZs7yIrzKVfZi5ckttB7AfTHubGdgv_b2W2g5FaCvqroOWeJesTfN0LOzFQ3REOMgcebv4ZTreXsqO5t6qK3qXHKFQS7lxpCXz1Qu-yJii0a3l-jyfZezChOVg"/>
+</div>
+</div>
+</header>
+<div class="flex pt-16 min-h-screen">
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col fixed left-0 top-16 h-[calc(100vh-64px)] w-64 p-stack-md bg-surface-container-low border-r border-outline-variant">
+<div class="flex flex-col items-center mb-8 px-4">
+<div class="w-16 h-16 rounded-2xl bg-primary-container mb-3 flex items-center justify-center shadow-lg">
+<img alt="Freelancer Avatar" class="w-12 h-12" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2xqJ85kxL273vZWdcaYYZM5XmxmR8Ut4-DQytHQlE9STjAHirNJXn9TkFJ2_mGbi60mEHRDQcug-6ulYhX_VXMpSHHpv1eMzgU4OL3jjEq7GSH_qRtrMmsYgjQ5TrXDgogboNHepNfuco679G0nxWRh0KsJMWPgvPztlj9eBeUFLsCE-247qp4v8x9AXQ7vQvfSH0Xcs95rCPrBV-Yq1AwaYYqqSFpTZGwOijjTEydspurN9mc5F4c4QVeK_N0_-9ytOXgHoceQ"/>
+</div>
+<h3 class="font-headline-md text-primary font-bold text-[16px]">Pro Freelancer</h3>
+<p class="text-label-caps text-on-surface-variant opacity-70">Verified Status</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container rounded-lg font-semibold translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-caps">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">work_history</span>
+<span class="text-label-caps">Active Tasks</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-label-caps">Earnings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">bookmark</span>
+<span class="text-label-caps">Saved Jobs</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-caps">Settings</span>
+</a>
+</nav>
+<button class="mt-auto w-full py-4 bg-primary text-on-primary rounded-xl font-bold flex items-center justify-center gap-2 shadow-md hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">add_circle</span>
+                Post a Task
+            </button>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 lg:ml-64 p-gutter max-w-full overflow-x-hidden">
+<!-- View Toggle & Header -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+<div>
+<h1 class="text-headline-lg font-headline-lg text-primary">Overview</h1>
+<p class="text-body-md text-on-surface-variant">Manage your tasks and performance metrics.</p>
+</div>
+<!-- Toggle Container -->
+<div class="bg-surface-container-high p-1 rounded-full flex items-center shadow-inner">
+<button class="px-6 py-2.5 bg-surface text-primary rounded-full font-bold shadow-sm text-label-caps flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">currency_rupee</span>
+                        I want to Earn
+                    </button>
+<button class="px-6 py-2.5 text-on-surface-variant hover:text-primary rounded-full font-semibold text-label-caps flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[20px]">post_add</span>
+                        I want to Post
+                    </button>
+</div>
+</div>
+<!-- Bento Grid Dashboard Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Large Earnings Card -->
+<div class="md:col-span-8 bg-surface rounded-xl p-stack-lg shadow-[0px_4px_12px_rgba(46,49,146,0.05)] border border-outline-variant/30 flex flex-col">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h2 class="text-label-caps text-on-surface-variant mb-1">TOTAL EARNINGS</h2>
+<span class="text-headline-lg font-headline-lg text-primary">₹ 42,850.00</span>
+</div>
+<div class="flex gap-2">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-caps flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+                                +12% this month
+                            </span>
+</div>
+</div>
+<!-- Simplified Visual Graph Placeholder -->
+<div class="h-48 w-full mt-auto relative flex items-end gap-1.5">
+<div class="flex-1 bg-surface-container-high rounded-t-lg h-[40%] hover:bg-secondary-container transition-colors"></div>
+<div class="flex-1 bg-surface-container-high rounded-t-lg h-[55%] hover:bg-secondary-container transition-colors"></div>
+<div class="flex-1 bg-surface-container-high rounded-t-lg h-[45%] hover:bg-secondary-container transition-colors"></div>
+<div class="flex-1 bg-secondary rounded-t-lg h-[85%]"></div>
+<div class="flex-1 bg-surface-container-high rounded-t-lg h-[60%] hover:bg-secondary-container transition-colors"></div>
+<div class="flex-1 bg-surface-container-high rounded-t-lg h-[50%] hover:bg-secondary-container transition-colors"></div>
+<div class="flex-1 bg-surface-container-high rounded-t-lg h-[70%] hover:bg-secondary-container transition-colors"></div>
+<div class="flex-1 bg-surface-container-high rounded-t-lg h-[90%] hover:bg-secondary-container transition-colors"></div>
+<div class="flex-1 bg-surface-container-high rounded-t-lg h-[75%] hover:bg-secondary-container transition-colors"></div>
+<div class="flex-1 bg-surface-container-high rounded-t-lg h-[65%] hover:bg-secondary-container transition-colors"></div>
+<div class="flex-1 bg-surface-container-high rounded-t-lg h-[55%] hover:bg-secondary-container transition-colors"></div>
+<div class="flex-1 bg-primary rounded-t-lg h-[100%] shadow-lg"></div>
+</div>
+<div class="flex justify-between mt-4 text-label-caps text-outline">
+<span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span>
+</div>
+</div>
+<!-- Stats Pillar -->
+<div class="md:col-span-4 flex flex-col gap-6">
+<div class="bg-primary-container text-on-primary-container p-stack-lg rounded-xl shadow-lg relative overflow-hidden group">
+<div class="relative z-10">
+<p class="text-label-caps opacity-80 mb-1">CURRENT RANK</p>
+<h3 class="text-headline-md font-headline-md mb-4">Silver Tier III</h3>
+<div class="w-full bg-on-primary-container/20 h-2 rounded-full overflow-hidden mb-2">
+<div class="bg-secondary-fixed h-full w-[72%]"></div>
+</div>
+<p class="text-body-sm opacity-80">₹ 8,150 until Gold status</p>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-10 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[120px]">stars</span>
+</div>
+</div>
+<div class="bg-surface rounded-xl p-stack-lg shadow-sm border border-outline-variant/30 flex-1">
+<h2 class="text-label-caps text-on-surface-variant mb-4">ACTIVITY SUMMARY</h2>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">verified</span>
+<span class="text-body-md font-medium">Completed</span>
+</div>
+<span class="font-bold text-primary">24</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline">pending</span>
+<span class="text-body-md font-medium">Pending Review</span>
+</div>
+<span class="font-bold text-primary">03</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-error">priority_high</span>
+<span class="text-body-md font-medium">Urgent Issues</span>
+</div>
+<span class="font-bold text-error">00</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Active Jobs List -->
+<div class="md:col-span-12 lg:col-span-7 bg-surface rounded-xl p-stack-lg shadow-sm border border-outline-variant/30">
+<div class="flex justify-between items-center mb-6">
+<h2 class="text-headline-md font-headline-md text-primary">Active Tasks</h2>
+<button class="text-primary text-label-caps font-bold hover:underline">View All</button>
+</div>
+<div class="space-y-4">
+<!-- Task Card 1 -->
+<div class="p-4 border border-outline-variant/50 rounded-lg hover:border-primary/50 transition-colors flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">code</span>
+</div>
+<div>
+<h4 class="font-bold text-primary">Python Script Debugging</h4>
+<p class="text-body-sm text-on-surface-variant">Client: TechNexus Inc.</p>
+</div>
+</div>
+<div class="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-caps">₹ 1,200</span>
+<div class="flex items-center gap-2">
+<div class="w-24 bg-surface-container h-1.5 rounded-full overflow-hidden hidden md:block">
+<div class="bg-secondary h-full w-[60%]"></div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Task Card 2 -->
+<div class="p-4 border border-outline-variant/50 rounded-lg hover:border-primary/50 transition-colors flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">brush</span>
+</div>
+<div>
+<h4 class="font-bold text-primary">Logo Refresh (Modern)</h4>
+<p class="text-body-sm text-on-surface-variant">Client: GreenRoots Co.</p>
+</div>
+</div>
+<div class="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-caps">₹ 4,500</span>
+<div class="flex items-center gap-2">
+<div class="w-24 bg-surface-container h-1.5 rounded-full overflow-hidden hidden md:block">
+<div class="bg-secondary h-full w-[85%]"></div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Task Card 3 -->
+<div class="p-4 border border-outline-variant/50 rounded-lg hover:border-primary/50 transition-colors flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">description</span>
+</div>
+<div>
+<h4 class="font-bold text-primary">B2B Content Writing</h4>
+<p class="text-body-sm text-on-surface-variant">Client: MarketWise</p>
+</div>
+</div>
+<div class="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-caps">₹ 800</span>
+<div class="flex items-center gap-2">
+<div class="w-24 bg-surface-container h-1.5 rounded-full overflow-hidden hidden md:block">
+<div class="bg-secondary h-full w-[20%]"></div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Saved/Recent Grid Item -->
+<div class="md:col-span-12 lg:col-span-5 flex flex-col gap-6">
+<div class="bg-surface rounded-xl p-stack-lg shadow-sm border border-outline-variant/30 flex-1">
+<h2 class="text-label-caps text-on-surface-variant mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">bookmark</span>
+                            SAVED FOR LATER
+                        </h2>
+<div class="space-y-4">
+<div class="flex gap-4 items-start pb-4 border-b border-outline-variant/30">
+<div class="flex-1">
+<h4 class="text-body-md font-bold text-primary leading-tight">Full-Stack React Dashboard Development</h4>
+<p class="text-body-sm text-on-surface-variant mt-1">Budget: ₹ 12,000 • 5 days left</p>
+</div>
+<button class="bg-primary-fixed text-on-primary-fixed px-3 py-1 rounded-full text-label-caps font-bold">Apply</button>
+</div>
+<div class="flex gap-4 items-start pb-4 border-b border-outline-variant/30">
+<div class="flex-1">
+<h4 class="text-body-md font-bold text-primary leading-tight">API Integration for Shopify Store</h4>
+<p class="text-body-sm text-on-surface-variant mt-1">Budget: ₹ 3,500 • 1 day left</p>
+</div>
+<button class="bg-primary-fixed text-on-primary-fixed px-3 py-1 rounded-full text-label-caps font-bold">Apply</button>
+</div>
+</div>
+</div>
+<div class="relative rounded-xl overflow-hidden h-40">
+<img class="w-full h-full object-cover brightness-50" data-alt="A professional workspace with a sleek laptop, clean minimalist desk, and high-end tech accessories in a bright corporate office setting. The lighting is crisp and modern with soft shadows, reflecting a high-performance and trustworthy environment. Indigo blue and clean whites dominate the scene to match the FinTech visual style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_gRCv1_GP1d1IF57XIylNG32lQ2D0ws3BLxjU0toRJgPS8t2NR3k2rt228dsS4vtQ3-VM58lAKFVxapRCPCQujUhKrq_ffyuLjp9FcIUcq2r6E7zioqUGecJB492hk6TE079YYjbptriG9-WYxhQzyxs8f1oWs4qt8xgCTlxeugLVM2NzdJJ6ip_Uk5HjUyh-Wcm-pmNd-__4D-lRJ_nH-e1K0bdhlrh3fmP26YqPqgaHh2mVpAjffDO7S_hphSXoNfgnzXeWBA"/>
+<div class="absolute inset-0 p-6 flex flex-col justify-end">
+<p class="text-white font-bold text-body-lg">Grow your skill set with TaskForge Academy</p>
+<a class="text-secondary-fixed font-bold text-label-caps mt-1 flex items-center gap-1" href="#">Explore courses <span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer Component -->
+<footer class="w-full py-stack-lg px-gutter flex flex-col md:flex-row justify-between items-center border-t border-outline-variant bg-inverse-surface mt-12">
+<div class="mb-4 md:mb-0">
+<span class="text-headline-md font-headline-md font-bold text-on-primary">TaskForge</span>
+<p class="text-surface-variant text-body-sm mt-1">© 2024 TaskForge Inc. Secured by Institutional Trust.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-6">
+<a class="text-surface-variant hover:text-secondary-fixed-dim transition-colors text-label-caps" href="#">Privacy Policy</a>
+<a class="text-surface-variant hover:text-secondary-fixed-dim transition-colors text-label-caps" href="#">Terms of Service</a>
+<a class="text-surface-variant hover:text-secondary-fixed-dim transition-colors text-label-caps" href="#">Trust &amp; Safety</a>
+<a class="text-surface-variant hover:text-secondary-fixed-dim transition-colors text-label-caps" href="#">Contact Support</a>
+</div>
+</footer>
+</body></html>

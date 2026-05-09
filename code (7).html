@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TaskForge - Post a Task</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#50fdc7",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "inverse-surface": "#2d3133",
+                        "secondary": "#006c50",
+                        "surface-bright": "#f7f9fb",
+                        "on-secondary-container": "#007054",
+                        "surface-container": "#eceef0",
+                        "surface-variant": "#e0e3e5",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "tertiary": "#19293d",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#e1e0ff",
+                        "on-surface": "#191c1e",
+                        "outline-variant": "#c7c5d4",
+                        "on-secondary-fixed-variant": "#00513c",
+                        "on-secondary-fixed": "#002116",
+                        "surface-dim": "#d8dadc",
+                        "secondary-container": "#4cfac4",
+                        "secondary-fixed-dim": "#1ee0ac",
+                        "primary": "#15157d",
+                        "tertiary-container": "#2f3f54",
+                        "background": "#f7f9fb",
+                        "inverse-primary": "#c0c1ff",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "on-tertiary-container": "#9aaac3",
+                        "on-primary-container": "#9da1ff",
+                        "on-surface-variant": "#464652",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-primary-fixed": "#04006d",
+                        "on-error": "#ffffff",
+                        "on-background": "#191c1e",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "on-tertiary-fixed": "#0b1c30",
+                        "on-tertiary": "#ffffff",
+                        "primary-container": "#2e3192",
+                        "surface-container-low": "#f2f4f6",
+                        "surface-container-high": "#e6e8ea",
+                        "surface-tint": "#4f54b4",
+                        "surface": "#f7f9fb",
+                        "outline": "#777683",
+                        "on-primary-fixed-variant": "#373a9b",
+                        "tertiary-fixed": "#d3e4fe"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "container-max": "1280px",
+                        "stack-lg": "24px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Inter"],
+                        "budget-display": ["Plus Jakarta Sans"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "budget-display": ["20px", {"lineHeight": "24px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-dot {
+            box-shadow: 0 0 0 4px rgba(21, 21, 125, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-gutter h-16 max-w-container-max mx-auto bg-surface dark:bg-inverse-surface shadow-sm dark:shadow-none">
+<div class="flex items-center gap-stack-lg">
+<span class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed-dim">TaskForge</span>
+<div class="hidden md:flex gap-stack-md ml-8">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors text-label-caps font-label-caps" href="#">Find Tasks</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors text-label-caps font-label-caps" href="#">My Projects</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors text-label-caps font-label-caps" href="#">Messages</a>
+</div>
+</div>
+<div class="flex items-center gap-stack-md">
+<div class="hidden sm:flex items-center bg-surface-container rounded-full px-4 py-1.5 gap-2">
+<span class="material-symbols-outlined text-on-surface-variant" style="font-size: 18px;">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm w-32 lg:w-48" placeholder="Search tasks..." type="text"/>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant p-2 hover:bg-surface-variant rounded-full">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant p-2 hover:bg-surface-variant rounded-full">help_outline</button>
+<div class="h-8 w-8 rounded-full bg-primary-fixed flex items-center justify-center overflow-hidden border border-outline-variant">
+<img alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFJgMnHJ_HJpuoKksXudX-vuyj3wc0CCmaVfO2baPHXPBO7AJXvViiRY9EYM8Rrgec30GYOh23teSQ941zYSibv9sfeCT5LPoC2kz9U9CX5eixZVaMD86-0ezp-pXiDcG03GZHwbYeShvCI6Pl__YEo0CtazKZ28aSukj5NGUu0sqck9RtM5uLbXfz-Wy7sUqy-UeimHe3oWgagcbnaIojaVjlRnP9yZ8nYyToL9AOX-zP9e9DkwWAYBU4eU158UnTs90jZrIHSw"/>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-grow pt-24 pb-16 px-4 md:px-gutter max-w-4xl mx-auto w-full">
+<!-- Stepper Progress Bar -->
+<div class="mb-10">
+<div class="relative flex justify-between items-center max-w-lg mx-auto">
+<div class="absolute top-1/2 left-0 w-full h-0.5 bg-surface-variant -translate-y-1/2 z-0"></div>
+<div class="absolute top-1/2 left-0 w-1/3 h-0.5 bg-primary -translate-y-1/2 z-0"></div>
+<!-- Step 1: Active -->
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold active-dot">1</div>
+<span class="text-label-caps font-label-caps text-primary">Details</span>
+</div>
+<!-- Step 2 -->
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="w-10 h-10 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center font-bold border-2 border-surface-variant">2</div>
+<span class="text-label-caps font-label-caps text-on-surface-variant">Review</span>
+</div>
+<!-- Step 3 -->
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="w-10 h-10 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center font-bold border-2 border-surface-variant">3</div>
+<span class="text-label-caps font-label-caps text-on-surface-variant">Post</span>
+</div>
+</div>
+</div>
+<!-- Form Container -->
+<div class="bg-surface shadow-[0px_4px_12px_rgba(46,49,146,0.05)] rounded-xl overflow-hidden border border-surface-variant/50">
+<div class="p-stack-lg border-b border-surface-variant/30 flex justify-between items-center bg-surface-bright">
+<div>
+<h1 class="text-headline-md font-headline-md text-on-surface">Post a New Task</h1>
+<p class="text-body-sm text-on-surface-variant">Fill in the details to reach our network of vetted freelancers.</p>
+</div>
+<span class="material-symbols-outlined text-primary-fixed-dim" style="font-size: 48px;">post_add</span>
+</div>
+<form class="p-stack-lg space-y-stack-lg">
+<!-- Section: Basic Info -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-lg">
+<div class="space-y-2 col-span-2 md:col-span-1">
+<label class="text-label-caps font-label-caps text-on-surface-variant">Task Title</label>
+<input class="w-full px-4 py-3 rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-body-md placeholder:text-outline" placeholder="e.g., Design a high-conversion landing page" type="text"/>
+</div>
+<div class="space-y-2 col-span-2 md:col-span-1">
+<label class="text-label-caps font-label-caps text-on-surface-variant">Category</label>
+<select class="w-full px-4 py-3 rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-body-md bg-white">
+<option>UI/UX Design</option>
+<option>Web Development</option>
+<option>Content Writing</option>
+<option>Data Entry</option>
+</select>
+</div>
+<div class="space-y-2 col-span-2">
+<label class="text-label-caps font-label-caps text-on-surface-variant">Task Description</label>
+<textarea class="w-full px-4 py-3 rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-body-md placeholder:text-outline resize-none" placeholder="Describe the deliverables, timeline, and any specific requirements..." rows="4"></textarea>
+</div>
+</div>
+<!-- Section: Budgeting -->
+<div class="pt-stack-md space-y-stack-md">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-size: 20px;">payments</span>
+<h2 class="text-headline-sm font-headline-sm font-bold text-on-surface">Set Your Budget</h2>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-stack-md">
+<button class="flex flex-col items-center justify-center p-stack-md border-2 border-outline-variant rounded-xl hover:border-primary-container hover:bg-surface-container-low transition-all group" type="button">
+<span class="text-label-caps font-label-caps text-on-surface-variant group-hover:text-primary">Micro</span>
+<span class="text-budget-display font-budget-display text-on-surface">₹100</span>
+</button>
+<button class="flex flex-col items-center justify-center p-stack-md border-2 border-primary rounded-xl bg-primary-fixed/30 group" type="button">
+<span class="text-label-caps font-label-caps text-primary">Standard</span>
+<span class="text-budget-display font-budget-display text-primary">₹500</span>
+</button>
+<button class="flex flex-col items-center justify-center p-stack-md border-2 border-outline-variant rounded-xl hover:border-primary-container hover:bg-surface-container-low transition-all group" type="button">
+<span class="text-label-caps font-label-caps text-on-surface-variant group-hover:text-primary">Premium</span>
+<span class="text-budget-display font-budget-display text-on-surface">₹1000</span>
+</button>
+<div class="relative group">
+<div class="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+<span class="text-body-md font-bold text-on-surface-variant">₹</span>
+</div>
+<input class="w-full h-full min-h-[84px] pl-8 pr-4 border-2 border-dashed border-outline-variant rounded-xl text-budget-display font-budget-display focus:border-primary focus:ring-0 outline-none transition-all placeholder:text-outline-variant text-center" placeholder="Custom" type="number"/>
+</div>
+</div>
+</div>
+<!-- Section: Attachments/Details -->
+<div class="bg-surface-container-low rounded-lg p-stack-md flex items-center justify-between border border-outline-variant/20">
+<div class="flex items-center gap-4">
+<div class="bg-white p-3 rounded-full shadow-sm">
+<span class="material-symbols-outlined text-on-surface-variant">attach_file</span>
+</div>
+<div>
+<p class="text-body-md font-semibold text-on-surface">Add Attachments</p>
+<p class="text-body-sm text-on-surface-variant">PDF, JPEG, or PNG (Max 10MB)</p>
+</div>
+</div>
+<button class="px-4 py-2 bg-white border border-outline-variant rounded-lg text-label-caps font-label-caps hover:bg-surface-variant transition-colors" type="button">Upload</button>
+</div>
+<!-- Form Actions -->
+<div class="pt-stack-lg flex flex-col md:flex-row gap-stack-md justify-between items-center">
+<button class="text-on-surface-variant font-label-caps text-label-caps flex items-center gap-2 hover:text-on-surface" type="button">
+<span class="material-symbols-outlined">arrow_back</span>
+                        Save as Draft
+                    </button>
+<div class="flex gap-stack-md w-full md:w-auto">
+<button class="flex-1 md:flex-none px-8 py-3 rounded-lg bg-surface-variant text-on-surface-variant font-label-caps text-label-caps font-bold hover:bg-surface-dim transition-colors" type="button">Back</button>
+<button class="flex-1 md:flex-none px-12 py-3 rounded-lg bg-secondary text-on-secondary font-label-caps text-label-caps font-bold shadow-md hover:bg-secondary/90 active:scale-95 transition-all flex items-center justify-center gap-2" type="submit">
+                            Review &amp; Post
+                            <span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span>
+</button>
+</div>
+</div>
+</form>
+</div>
+<!-- Tip Box -->
+<div class="mt-stack-lg flex gap-4 p-stack-md bg-secondary-container/20 border border-secondary/10 rounded-xl">
+<span class="material-symbols-outlined text-secondary" data-weight="fill">lightbulb</span>
+<p class="text-body-sm text-on-secondary-fixed-variant">
+<span class="font-bold">Pro Tip:</span> Detailed descriptions attract 40% more qualified applicants. Mention the specific tools or skills required to filter for the best experts.
+            </p>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-stack-lg px-gutter flex flex-col md:flex-row justify-between items-center border-t border-outline-variant dark:border-outline bg-inverse-surface dark:bg-surface-container-lowest">
+<div class="mb-stack-md md:mb-0">
+<span class="text-headline-md font-headline-md font-bold text-on-primary">TaskForge</span>
+<p class="text-body-sm font-body-sm text-surface-variant mt-1">© 2024 TaskForge Inc. Secured by Institutional Trust.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-stack-lg">
+<a class="text-surface-variant dark:text-on-surface-variant hover:text-secondary-fixed-dim transition-colors text-label-caps font-label-caps" href="#">Privacy Policy</a>
+<a class="text-surface-variant dark:text-on-surface-variant hover:text-secondary-fixed-dim transition-colors text-label-caps font-label-caps" href="#">Terms of Service</a>
+<a class="text-surface-variant dark:text-on-surface-variant hover:text-secondary-fixed-dim transition-colors text-label-caps font-label-caps" href="#">Trust &amp; Safety</a>
+<a class="text-surface-variant dark:text-on-surface-variant hover:text-secondary-fixed-dim transition-colors text-label-caps font-label-caps" href="#">Contact Support</a>
+</div>
+</footer>
+</body></html>
