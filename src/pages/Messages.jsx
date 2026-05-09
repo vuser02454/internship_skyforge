@@ -12,6 +12,8 @@ export default function Messages() {
   // The chat for the currently selected task
   const { messages, sendMessage } = useChat(activeTaskId);
   const [chatInput, setChatInput] = useState('');
+  const [showChatOptions, setShowChatOptions] = useState(false);
+  const fileInputRef = React.useRef(null);
 
   const activeTask = engagements.find(t => t.id === activeTaskId);
 
@@ -103,14 +105,47 @@ export default function Messages() {
           ) : (
             <div className="flex-1 flex flex-col h-full bg-surface-container-lowest relative">
                {/* Chat Header */}
-               <div className="px-6 py-4 border-b border-outline-variant/30 bg-surface flex items-center justify-between shadow-sm z-10">
-                 <div>
-                   <h2 className="font-bold text-primary">{activeTask?.title}</h2>
-                   <p className="text-body-sm text-on-surface-variant">Secure Task Room</p>
+               <div className="px-6 py-4 border-b border-outline-variant/30 bg-surface flex items-center justify-between shadow-sm z-10 relative">
+                 <div className="flex items-center gap-3">
+                   <button onClick={() => setActiveTaskId(null)} className="md:hidden p-2 -ml-2 text-on-surface-variant hover:text-primary transition-colors">
+                      <span className="material-symbols-outlined">arrow_back</span>
+                   </button>
+                   <div>
+                     <h2 className="font-bold text-primary">{activeTask?.title}</h2>
+                     <p className="text-body-sm text-on-surface-variant">Secure Task Room</p>
+                   </div>
                  </div>
-                 <button onClick={() => setActiveTaskId(null)} className="md:hidden p-2 text-on-surface-variant">
-                    <span className="material-symbols-outlined">close</span>
-                 </button>
+                 
+                 <div className="relative">
+                   <button 
+                     onClick={() => setShowChatOptions(!showChatOptions)} 
+                     className="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors"
+                   >
+                      <span className="material-symbols-outlined">more_vert</span>
+                   </button>
+
+                   {showChatOptions && (
+                     <>
+                       <div className="fixed inset-0 z-40" onClick={() => setShowChatOptions(false)}></div>
+                       <div className="absolute right-0 top-12 z-50 bg-surface rounded-xl shadow-lg border border-outline-variant/30 py-2 w-48 animate-in fade-in slide-in-from-top-2">
+                         <button 
+                           onClick={() => { alert('Block User feature coming soon!'); setShowChatOptions(false); }}
+                           className="w-full text-left px-4 py-2.5 text-body-sm text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors flex items-center gap-3"
+                         >
+                           <span className="material-symbols-outlined text-[18px]">block</span>
+                           Block User
+                         </button>
+                         <button 
+                           onClick={() => { alert('Delete Chat feature coming soon!'); setShowChatOptions(false); }}
+                           className="w-full text-left px-4 py-2.5 text-body-sm text-error hover:bg-error-container transition-colors flex items-center gap-3"
+                         >
+                           <span className="material-symbols-outlined text-[18px]">delete</span>
+                           Delete Chat
+                         </button>
+                       </div>
+                     </>
+                   )}
+                 </div>
                </div>
 
                {/* Messages Feed */}
@@ -146,10 +181,22 @@ export default function Messages() {
                {/* Chat Input */}
                <div className="p-4 bg-surface border-t border-outline-variant/30">
                  <div className="flex items-center gap-2 bg-surface-container-low p-2 rounded-xl border border-outline focus-within:border-primary transition-colors">
+                    
+                    {/* Attachment Button */}
+                    <input type="file" className="hidden" ref={fileInputRef} onChange={(e) => {
+                      if(e.target.files[0]) alert('Image/Link uploads coming soon!');
+                    }} />
+                    <button 
+                      onClick={() => fileInputRef.current?.click()}
+                      className="w-10 h-10 text-on-surface-variant hover:bg-surface-container hover:text-primary rounded-full flex items-center justify-center transition-colors flex-shrink-0"
+                    >
+                      <span className="material-symbols-outlined">add</span>
+                    </button>
+
                     <input 
                       type="text" 
                       placeholder="Type a message..." 
-                      className="flex-1 bg-transparent border-none outline-none px-2 text-body-sm"
+                      className="flex-1 bg-transparent border-none outline-none px-2 text-body-sm min-w-0"
                       value={chatInput}
                       onChange={(e) => setChatInput(e.target.value)}
                       onKeyDown={handleKeyDown}
@@ -157,7 +204,7 @@ export default function Messages() {
                     <button 
                       onClick={handleSend}
                       disabled={!chatInput.trim()}
-                      className="w-10 h-10 bg-primary text-on-primary rounded-lg flex items-center justify-center disabled:opacity-50 hover:scale-95 transition-transform"
+                      className="w-10 h-10 bg-primary text-on-primary rounded-lg flex items-center justify-center disabled:opacity-50 hover:scale-95 transition-transform flex-shrink-0"
                     >
                       <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>send</span>
                     </button>
