@@ -236,15 +236,56 @@ export function Footer() {
   );
 }
 
+export function BottomNav() {
+  const location = useLocation();
+  const currentPath = location.pathname;
+
+  const getClasses = (path) => {
+    // Exact match for home, starts-with for others
+    const isActive = path === '/' ? currentPath === '/' : currentPath.startsWith(path);
+    return `flex flex-col items-center justify-center w-full py-2 transition-colors ${
+      isActive ? 'text-primary' : 'text-on-surface-variant hover:text-on-surface'
+    }`;
+  };
+
+  return (
+    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-surface border-t border-outline-variant flex justify-between items-center px-2 pb-safe lg:hidden shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+      <Link to="/" className={getClasses("/")}>
+        <span className="material-symbols-outlined text-[24px]">dashboard</span>
+        <span className="text-[10px] font-medium mt-1">Home</span>
+      </Link>
+      <Link to="/search" className={getClasses("/search")}>
+        <span className="material-symbols-outlined text-[24px]">search</span>
+        <span className="text-[10px] font-medium mt-1">Find</span>
+      </Link>
+      
+      {/* Floating Action Button for Posting/Viewing */}
+      <Link to="/post-task" className="relative -top-4 bg-primary text-on-primary w-14 h-14 rounded-full flex flex-col items-center justify-center shadow-lg border-4 border-surface hover:scale-105 transition-transform">
+        <span className="material-symbols-outlined text-[28px]">add</span>
+      </Link>
+
+      <Link to="/messages" className={getClasses("/messages")}>
+        <span className="material-symbols-outlined text-[24px]">chat</span>
+        <span className="text-[10px] font-medium mt-1">Chat</span>
+      </Link>
+      <Link to="/settings" className={getClasses("/settings")}>
+        <span className="material-symbols-outlined text-[24px]">person</span>
+        <span className="text-[10px] font-medium mt-1">Profile</span>
+      </Link>
+    </nav>
+  );
+}
+
 export default function Layout() {
   return (
     <>
       <Header />
       <Sidebar />
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col pb-20 lg:pb-0">
         <Outlet />
         <Footer />
       </div>
+      <BottomNav />
     </>
   );
 }
