@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { startTour } from './GuidedTour';
+import { useUnreadMessages } from '../hooks/useUnreadMessages';
 
 export function Header() {
   const location = useLocation();
@@ -10,6 +11,7 @@ export function Header() {
   const currentPath = location.pathname;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  const unreadCount = useUnreadMessages();
 
   const getHeaderLinkClasses = (path) => {
     if (currentPath === path || (path === '/search' && currentPath.startsWith('/search'))) {
@@ -55,7 +57,14 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-4">
-          <button className="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors hidden sm:block">notifications</button>
+          <div className="relative hidden sm:block">
+            <button className="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center">notifications</button>
+            {unreadCount > 0 && (
+              <span className="absolute -top-1 -right-1 bg-error text-on-error text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full animate-pulse shadow-sm">
+                {unreadCount > 9 ? '9+' : unreadCount}
+              </span>
+            )}
+          </div>
           <button onClick={startTour} className="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors hidden sm:block" title="Start Tour">help_outline</button>
           <div className="h-8 w-px bg-outline-variant mx-1 hidden sm:block"></div>
 
@@ -247,6 +256,7 @@ export function Footer() {
 export function BottomNav() {
   const location = useLocation();
   const currentPath = location.pathname;
+  const unreadCount = useUnreadMessages();
 
   const getClasses = (path) => {
     // Exact match for home, starts-with for others
@@ -272,8 +282,15 @@ export function BottomNav() {
         <span className="material-symbols-outlined text-[28px]">add</span>
       </Link>
 
-      <Link to="/messages" className={getClasses("/messages")}>
-        <span className="material-symbols-outlined text-[24px]">chat</span>
+      <Link to="/messages" className={`${getClasses("/messages")} relative`}>
+        <div className="relative">
+          <span className="material-symbols-outlined text-[24px]">chat</span>
+          {unreadCount > 0 && (
+            <span className="absolute -top-1 -right-2 bg-error text-on-error text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full shadow-sm ring-2 ring-surface">
+              {unreadCount > 9 ? '9+' : unreadCount}
+            </span>
+          )}
+        </div>
         <span className="text-[10px] font-medium mt-1">Chat</span>
       </Link>
       <Link to="/settings" className={getClasses("/settings")}>

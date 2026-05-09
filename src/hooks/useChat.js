@@ -23,6 +23,7 @@ export function useChat(taskId) {
         message,
         created_at,
         sender_id,
+        is_read,
         sender:profiles!task_messages_sender_id_fkey(full_name, email)
       `)
       .eq('task_id', taskId)
@@ -32,9 +33,20 @@ export function useChat(taskId) {
       console.error('Error fetching messages:', error);
     } else {
       setMessages(data || []);
+      // Automatically mark unread messages as read
+      const unreadIds = data
+        .filter(m => m.sender_id !== user?.id && m.is_read === false)
+        .map(m => m.id);
+        
+      if (unreadIds.length > 0) {
+        supabase.from('task_messages')
+          .update({ is_read: true })
+          .in('id', unreadIds)
+          .then(); // fire and forget
+      }
     }
     setLoading(false);
-  }, [taskId]);
+  }, [taskId, user?.id]);
 
   useEffect(() => {
     fetchMessages();
@@ -84,9 +96,20 @@ export function useChat(taskId) {
             if (prev.some(m => m.id === newMessage.id)) return prev;
 
             if (!isOurMessage && "Notification" in window && Notification.permission === "granted") {
-              new Notification(`New message from ${newMessage.sender.full_name}`, {
-                body: newMessage.message
-              });
+              // Only notify if we aren't already looking at it, but since we are in this chat, we probably are.
+              // Actually, if we receive it while in the chat, we shouldn't notify, we should just mark it as read!
+              if (document.visibilityState !== 'visible') {
+                new Notification(`New message from ${newMessage.sender.full_name}`, {
+                  body: newMessage.message
+                });
+              } else {
+                // We are looking at the chat, mark as read immediately
+                supabase.from('task_messages')
+                  .update({ is_read: true })
+                  .eq('id', newMessage.id)
+                  .then();
+                newMessage.is_read = true;
+              }
             }
 
             return [...prev, newMessage];
