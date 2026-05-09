@@ -100,6 +100,7 @@ function App() {
             <Route path="no-tasks" element={<NoTasks />} />
             <Route path="loading" element={<Loading />} />
             <Route path="task-detail" element={<TaskDetail />} />
+            <Route path="task/:id" element={<TaskDetail />} />
             <Route path="work-submission" element={<WorkSubmission />} />
             <Route path="post-task" element={<PostTask />} />
             <Route path="settings" element={<Settings />} />

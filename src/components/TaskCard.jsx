@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 const CATEGORY_ICONS = {
@@ -62,6 +63,7 @@ function getDeadlineInfo(deadline) {
 
 export default function TaskCard({ task, onAccept }) {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [accepting, setAccepting] = useState(false);
   const [error, setError] = useState('');
   const [accepted, setAccepted] = useState(false);
@@ -89,9 +91,18 @@ export default function TaskCard({ task, onAccept }) {
     setAccepting(false);
   };
 
+  const handleCardClick = (e) => {
+    // Prevent navigation if a button inside the card was clicked
+    if (e.target.tagName.toLowerCase() === 'button' || e.target.closest('button')) {
+      return;
+    }
+    navigate(`/task/${task.id}`);
+  };
+
   return (
     <div
-      className={`bg-surface rounded-xl p-6 border transition-all flex flex-col ${
+      onClick={handleCardClick}
+      className={`bg-surface rounded-xl p-6 border transition-all flex flex-col cursor-pointer ${
         accepted
           ? 'border-secondary shadow-md ring-1 ring-secondary/20'
           : isAccepted

@@ -1,6 +1,27 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { supabase } from '../supabaseClient';
+import { useAuth } from '../contexts/AuthContext';
+
+function timeAgo(dateStr) {
+  const now = new Date();
+  const date = new Date(dateStr);
+  const diff = Math.floor((now - date) / 1000);
+  if (diff < 60) return 'Just now';
+  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
+  return `${Math.floor(diff / 86400)}d ago`;
+}
 
 export default function TaskDetail() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  
+  const [task, setTask] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   // State for application
   const [pitch, setPitch] = useState('');
   const [isApplying, setIsApplying] = useState(false);
@@ -12,6 +33,27 @@ export default function TaskDetail() {
 
   // State for save for later
   const [isSaved, setIsSaved] = useState(false);
+
+  useEffect(() => {
+    if (!id) return;
+    const fetchTask = async () => {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from('tasks')
+        .select('*, client:profiles!tasks_client_id_fkey(full_name, email, avatar_url)')
+        .eq('id', id)
+        .single();
+        
+      if (error) {
+        console.error('Error fetching task:', error);
+        setError('Task not found.');
+      } else {
+        setTask(data);
+      }
+      setLoading(false);
+    };
+    fetchTask();
+  }, [id]);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -40,61 +82,66 @@ export default function TaskDetail() {
     setIsSaved(!isSaved);
   };
 
+  if (loading) {
+    return (
+      <main className="pt-24 pb-stack-lg px-gutter max-w-container-max mx-auto min-h-screen flex items-center justify-center">
+        <span className="material-symbols-outlined animate-spin text-5xl text-primary">progress_activity</span>
+      </main>
+    );
+  }
+
+  if (error || !task) {
+    return (
+      <main className="pt-24 pb-stack-lg px-gutter max-w-container-max mx-auto min-h-screen flex items-center justify-center flex-col">
+        <span className="material-symbols-outlined text-6xl text-error mb-4">error</span>
+        <h2 className="text-headline-md font-bold text-on-surface mb-2">{error || "Task not found"}</h2>
+        <button onClick={() => navigate(-1)} className="text-primary font-bold hover:underline">Go Back</button>
+      </main>
+    );
+  }
+
+  const isOwner = user?.id === task.client_id;
+  const isClientRole = user?.user_metadata?.user_role === 'client';
+
   return (
     <main className="pt-24 pb-stack-lg px-gutter max-w-container-max mx-auto">
+      <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-primary font-bold hover:underline mb-6">
+        <span className="material-symbols-outlined">arrow_back</span>
+        Back to Tasks
+      </button>
 
 <div className="flex flex-col lg:flex-row gap-gutter">
 {/* Left Column: Task Details */}
 <div className="flex-1 space-y-stack-lg">
 <div className="bg-surface p-stack-lg rounded-xl task-card-shadow border border-outline-variant/30">
 <div className="flex flex-wrap items-center gap-stack-sm mb-stack-md">
-<span className="px-3 py-1 bg-secondary-container text-on-secondary-container text-label-caps font-label-caps rounded-full">Available</span>
-<span className="px-3 py-1 bg-primary-fixed text-on-primary-fixed-variant text-label-caps font-label-caps rounded-full">Web Development</span>
+<span className={`px-3 py-1 text-label-caps font-label-caps rounded-full ${
+  task.status === 'open' ? 'bg-secondary-container text-on-secondary-container' : 'bg-surface-container text-on-surface-variant'
+}`}>
+  {task.status === 'open' ? 'Open' : 'Unavailable'}
+</span>
+{task.category && (
+  <span className="px-3 py-1 bg-primary-fixed text-on-primary-fixed-variant text-label-caps font-label-caps rounded-full">
+    {task.category}
+  </span>
+)}
 </div>
-<h1 className="text-headline-lg font-headline-lg text-primary mb-stack-md">Optimize React Component Performance for E-commerce Dashboard</h1>
-<div className="flex gap-gutter border-b border-outline-variant/30 pb-stack-lg mb-stack-lg">
+<h1 className="text-headline-lg font-headline-lg text-primary mb-stack-md">{task.title}</h1>
+<div className="flex flex-wrap gap-gutter border-b border-outline-variant/30 pb-stack-lg mb-stack-lg">
 <div className="flex items-center gap-stack-sm">
 <span className="material-symbols-outlined text-primary">schedule</span>
-<span className="text-body-sm font-body-sm text-on-surface-variant">Deadline: 24h Left</span>
-</div>
-<div className="flex items-center gap-stack-sm">
-<span className="material-symbols-outlined text-primary">location_on</span>
-<span className="text-body-sm font-body-sm text-on-surface-variant">Remote</span>
+<span className="text-body-sm font-body-sm text-on-surface-variant">Deadline: {task.deadline ? new Date(task.deadline).toLocaleDateString() : 'Flexible'}</span>
 </div>
 <div className="flex items-center gap-stack-sm">
 <span className="material-symbols-outlined text-primary">history</span>
-<span className="text-body-sm font-body-sm text-on-surface-variant">Posted 2h ago</span>
+<span className="text-body-sm font-body-sm text-on-surface-variant">Posted {timeAgo(task.created_at)}</span>
 </div>
 </div>
 <section className="space-y-stack-md">
 <h2 className="text-headline-md font-headline-md text-on-surface">Detailed Job Description</h2>
-<p className="text-body-md font-body-md text-on-surface-variant">
-                            We are looking for a senior React developer to audit and optimize a high-traffic dashboard page. The current Lighthouse performance score for the dashboard is 62/100, primarily due to excessive re-rendering in the data table and chart components. 
-                        </p>
-<p className="text-body-md font-body-md text-on-surface-variant">
-                            You will be tasked with identifying bottlenecks using React DevTools Profiler, implementing memoization where necessary, and optimizing the state management layer (Redux Toolkit) to ensure fluid user interactions.
-                        </p>
-</section>
-<section className="mt-stack-lg space-y-stack-md">
-<h2 className="text-headline-md font-headline-md text-on-surface">Requirements</h2>
-<ul className="list-none space-y-stack-sm">
-<li className="flex items-start gap-stack-sm text-body-md font-body-md text-on-surface-variant">
-<span className="material-symbols-outlined text-secondary text-lg mt-0.5" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
-                                Proven experience with React Profiler and performance tuning.
-                            </li>
-<li className="flex items-start gap-stack-sm text-body-md font-body-md text-on-surface-variant">
-<span className="material-symbols-outlined text-secondary text-lg mt-0.5" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
-                                Deep understanding of useMemo, useCallback, and React.memo patterns.
-                            </li>
-<li className="flex items-start gap-stack-sm text-body-md font-body-md text-on-surface-variant">
-<span className="material-symbols-outlined text-secondary text-lg mt-0.5" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
-                                Experience with large-scale Redux Toolkit implementations.
-                            </li>
-<li className="flex items-start gap-stack-sm text-body-md font-body-md text-on-surface-variant">
-<span className="material-symbols-outlined text-secondary text-lg mt-0.5" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
-                                Ability to deliver clean, documented code within a short timeframe.
-                            </li>
-</ul>
+<p className="text-body-md font-body-md text-on-surface-variant whitespace-pre-wrap">
+{task.description}
+</p>
 </section>
 </div>
 
@@ -124,14 +171,32 @@ export default function TaskDetail() {
 <div className="bg-surface p-stack-lg rounded-xl task-card-shadow border border-outline-variant/30 sticky top-24">
 <div className="mb-stack-md">
 <p className="text-label-caps font-label-caps text-on-surface-variant mb-1">TASK BUDGET</p>
-<p className="text-headline-lg font-budget-display text-primary">₹800</p>
+<p className="text-headline-lg font-budget-display text-primary">₹{Number(task.budget).toLocaleString('en-IN')}</p>
 </div>
 
 {/* Application Box */}
 <div className="space-y-stack-md mb-stack-lg">
 <div id="tour-quick-apply" className="p-stack-md bg-surface-container-low rounded-lg border border-outline-variant/20">
   
-  {hasApplied ? (
+  {isOwner ? (
+    <div className="text-center py-4">
+      <span className="material-symbols-outlined text-primary text-3xl mb-2">stars</span>
+      <h3 className="font-bold text-primary">Your Task</h3>
+      <p className="text-body-sm text-on-surface-variant">You posted this task. Check dashboard for applicants.</p>
+    </div>
+  ) : isClientRole ? (
+    <div className="text-center py-4">
+      <span className="material-symbols-outlined text-primary text-3xl mb-2">visibility</span>
+      <h3 className="font-bold text-primary">Client View</h3>
+      <p className="text-body-sm text-on-surface-variant">You are viewing this as a client.</p>
+    </div>
+  ) : task.status !== 'open' ? (
+    <div className="text-center py-4">
+      <span className="material-symbols-outlined text-on-surface-variant text-3xl mb-2">lock</span>
+      <h3 className="font-bold text-on-surface-variant">Not Available</h3>
+      <p className="text-body-sm text-on-surface-variant">This task has already been assigned.</p>
+    </div>
+  ) : hasApplied ? (
     <div className="flex flex-col items-center justify-center py-6 text-center animate-in fade-in zoom-in duration-300">
       <div className="w-16 h-16 bg-secondary-container rounded-full flex items-center justify-center mb-4">
         <span className="material-symbols-outlined text-secondary text-3xl">check_circle</span>
@@ -191,12 +256,16 @@ export default function TaskDetail() {
 <div className="pt-stack-md border-t border-outline-variant/30">
 <p className="text-label-caps font-label-caps text-on-surface-variant mb-stack-md">POSTED BY</p>
 <div className="flex items-center gap-stack-md mb-stack-sm">
-<div className="w-12 h-12 rounded-full overflow-hidden bg-surface-variant">
-<img alt="Poster Profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuByKFfsUnq81WjriRvl6WMg_BFTRKBx1nipmdBdHvdHnz6RozOcTtoO6pAggtOOx-QpHpOERvjLLSkUC4k7TDa9Hxv8xheHMAa86C1e1pUvMHbX4FZ-2LLMttG_om2-gX5QtkrDfP2eGwdlshoWiX3JN9TpDouFioT8Ww2j6LGnemJ5KN6GbfxjqRrcLQPKzF5eOXnm5qZJ2ULye4STne5dP3lLCfMfsWrcU2qjwHIDoqEpM839nwD0eXlj3HafneWxKHlECgpNUQ"/>
+<div className="w-12 h-12 rounded-full overflow-hidden bg-primary-container text-on-primary-container font-bold flex items-center justify-center">
+  {task.client?.avatar_url ? (
+    <img alt="Poster Profile" src={task.client.avatar_url} className="w-full h-full object-cover" />
+  ) : (
+    (task.client?.full_name?.charAt(0) || task.client?.email?.charAt(0) || 'C').toUpperCase()
+  )}
 </div>
 <div>
-<p className="text-body-md font-bold text-on-surface">Arjun P.</p>
-<p className="text-body-sm text-on-surface-variant">Verified Enterprise</p>
+<p className="text-body-md font-bold text-on-surface">{task.client?.full_name || 'Anonymous Client'}</p>
+<p className="text-body-sm text-on-surface-variant">Verified Client</p>
 </div>
 </div>
 <div className="flex items-center gap-stack-sm mt-3">
