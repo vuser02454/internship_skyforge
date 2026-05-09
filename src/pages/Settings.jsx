@@ -98,8 +98,8 @@ export default function Settings() {
           .single();
         if (data) {
           setFullName(data.full_name || '');
-          // If you add bio and skills to DB later, you can load them here
-        }
+          setBio(data.bio || '');
+          setSkills(data.skills || []);
       }
     };
     fetchProfile();
@@ -111,7 +111,11 @@ export default function Settings() {
     if (user) {
       const { error } = await supabase
         .from('profiles')
-        .update({ full_name: fullName }) // Can add bio and skills here once added to schema
+        .update({ 
+           full_name: fullName,
+           bio: bio,
+           skills: skills
+        })
         .eq('id', user.id);
       
       if (error) {
@@ -172,8 +176,8 @@ export default function Settings() {
     <main className="flex-1 lg:ml-64 pt-24 pb-12 px-gutter min-h-screen w-full overflow-x-hidden">
       <div className="max-w-4xl mx-auto">
         <header className="mb-10">
-          <h1 className="text-headline-lg font-headline-lg text-primary mb-2">Platform Settings</h1>
-          <p className="text-body-md text-on-surface-variant">Manage your TaskForge profile, security, and payment preferences.</p>
+          <h1 className="text-headline-lg font-headline-lg text-primary mb-2">My Profile</h1>
+          <p className="text-body-md text-on-surface-variant">Manage your personal profile, security, and payment preferences.</p>
         </header>
 
         {/* Settings Grid */}
