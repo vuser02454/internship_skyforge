@@ -48,22 +48,26 @@ The platform features role-based authentication, a modern dashboard, real-time m
 - Email change with double-confirmation
 - Protected routes (redirect to login if unauthenticated)
 
-### 📊 Dashboard
+### 📊 Dashboard & Live Feed
 - Task overview with status indicators
-- Earnings summary
+- Real-time Live Task feed that updates instantly without refreshing
+- Earnings and active engagements summary
 - Quick actions for common workflows
 
 ### 🔍 Task Management
 - Browse and search available tasks
-- Post new tasks with title, description, and budget
-- Task detail view with full information
+- Post new tasks with title, description, budget, and file attachments (PDF/JPEG)
+- Dynamic Project Detail view with clickable routing and attachment downloading
 - Work submission flow for freelancers
 
-### 💬 Messaging
+### 💬 Messaging & Notifications
 - Real-time messaging between clients and freelancers
+- Global unread message tracking with live notification badges across mobile and desktop
+- Smart read receipts (automatically clear when opening a chat thread)
 
 ### ⚙️ Settings
-- Profile management (name, bio, avatar, skills)
+- Dynamic Profile management (name, bio, skills)
+- Supabase Storage-backed Avatar uploads with mobile camera support
 - Email change with inline validation
 - Password update
 - Bank account management with Indian bank dropdown
