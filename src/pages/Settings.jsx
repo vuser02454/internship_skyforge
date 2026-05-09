@@ -236,10 +236,10 @@ export default function Settings() {
                       {fullName ? fullName.charAt(0).toUpperCase() : 'U'}
                     </div>
                   )}
-                  <input type="file" className="hidden" ref={fileInputRef} onChange={handleAvatarChange} accept="image/*" />
-                  <button onClick={() => fileInputRef.current?.click()} className="absolute bottom-0 right-0 bg-primary text-on-primary p-2 rounded-full shadow-lg hover:scale-110 transition-transform">
+                  <label className="absolute bottom-0 right-0 bg-primary text-on-primary p-2 rounded-full shadow-lg hover:scale-110 transition-transform cursor-pointer flex items-center justify-center">
                     <span className="material-symbols-outlined text-sm">photo_camera</span>
-                  </button>
+                    <input type="file" className="hidden" onChange={handleAvatarChange} accept="image/*" />
+                  </label>
                 </div>
                 <div>
                   <h3 className="text-headline-md font-headline-md text-primary">Profile Details</h3>
