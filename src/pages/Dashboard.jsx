@@ -115,6 +115,10 @@ export default function Dashboard() {
 
   const rankInfo = getRankInfo(totalEarnings);
 
+  // Calculate maximum values to scale graphs and prevent overflow
+  const maxRevenue = Math.max(100, ...revenueData.map(d => Math.max(d.user, d.avg)));
+  const maxActivity = Math.max(100, ...activityData.map(d => Math.max(d.user, d.avg)));
+
   return (
     <main className="flex-1 lg:ml-64 pt-24 pb-12 p-gutter max-w-full overflow-x-hidden">
 
@@ -182,12 +186,12 @@ export default function Dashboard() {
         {/* Platform Avg Bar */}
         <div 
           className="flex-1 bg-surface-variant rounded-t-md transition-all duration-500 group-hover:bg-outline-variant opacity-70"
-          style={{ height: `${data.avg}%` }}
+          style={{ height: `${(data.avg / maxRevenue) * 100}%` }}
         ></div>
         {/* User Bar */}
         <div 
           className={`flex-1 rounded-t-md transition-all duration-500 shadow-sm ${data.user > data.avg ? 'bg-primary group-hover:bg-primary/90' : 'bg-secondary group-hover:bg-secondary/90'}`}
-          style={{ height: `${data.user}%` }}
+          style={{ height: `${(data.user / maxRevenue) * 100}%` }}
         ></div>
       </div>
       <span className="text-[10px] font-bold text-outline uppercase">{data.month}</span>
@@ -229,11 +233,11 @@ export default function Dashboard() {
       <div className="flex items-end gap-0.5 w-full h-[80%] relative">
         <div 
           className="flex-1 bg-surface-variant rounded-t-sm transition-all duration-300 opacity-60"
-          style={{ height: `${data.avg}%` }}
+          style={{ height: `${(data.avg / maxActivity) * 100}%` }}
         ></div>
         <div 
           className="flex-1 bg-secondary rounded-t-sm transition-all duration-300 shadow-sm"
-          style={{ height: `${data.user}%` }}
+          style={{ height: `${(data.user / maxActivity) * 100}%` }}
         ></div>
       </div>
       <span className="text-[9px] font-bold text-outline uppercase">{data.day}</span>

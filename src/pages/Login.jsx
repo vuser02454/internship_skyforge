@@ -28,21 +28,7 @@ export default function Login() {
     setError('');
     setMessage('');
 
-    // Optional Backend Health Check
-    try {
 
-      const apiResponse = await fetch('http://127.0.0.1:5000/api/health');
-
-      if (!apiResponse.ok) {
-        throw new Error('Backend API not responding');
-      }
-
-    } catch (err) {
-
-      setError('Flask backend not running');
-      setLoading(false);
-      return;
-    }
 
     // Supabase Login
     const { error } = await supabase.auth.signInWithPassword({

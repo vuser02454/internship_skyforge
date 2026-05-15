@@ -121,94 +121,28 @@ export default function WorkSubmission() {
     });
   };
 
-  // Approve & Pay via Razorpay
+  // Approve (Mock Mode without Payment Gateway)
   const handleApprove = async () => {
     setIsApproving(true);
 
-    const RAZORPAY_KEY = import.meta.env.VITE_RAZORPAY_KEY_ID || '';
-    const isMockMode = !RAZORPAY_KEY || RAZORPAY_KEY.includes('REPLACE_WITH');
-
     try {
-      // 1. Create order on backend
-      const orderResponse = await fetch('/api/payments/create-order', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: task.budget, task_id: task.id })
-      });
-      const orderData = await orderResponse.json();
-      if (orderData.error) throw new Error(orderData.error);
+      // Simulate processing time
+      await new Promise(r => setTimeout(r, 1500));
 
-      // Helper: verify payment with backend
-      const verifyPayment = async (paymentId, orderId, signature) => {
-        const verifyRes = await fetch('/api/payments/verify', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            razorpay_payment_id: paymentId,
-            razorpay_order_id: orderId,
-            razorpay_signature: signature,
-            task_id: task.id
-          })
-        });
-        return verifyRes.json();
-      };
+      // Directly update the task to completed in Supabase
+      const { error } = await supabase
+        .table('tasks')
+        .update({ status: 'completed' })
+        .eq('id', task.id);
 
-      // 2. MOCK MODE — no real keys yet
-      if (isMockMode || orderData.mock) {
-        // Simulate 1.5s checkout
-        await new Promise(r => setTimeout(r, 1500));
-        const verifyData = await verifyPayment('pay_mock', orderData.id, 'mock_sig');
-        if (verifyData.status === 'success') {
-          setApproved(true);
-          sendMessage('SYSTEM NOTIFICATION: ✅ Payment approved! Funds will be transferred to the freelancer\'s registered payout account.');
-        }
-        return;
-      }
+      if (error) throw error;
 
-      // 3. LIVE MODE — real Razorpay checkout
-      const loaded = await loadRazorpayScript();
-      if (!loaded) throw new Error('Razorpay SDK failed to load. Check your internet connection.');
-
-      const options = {
-        key: RAZORPAY_KEY,
-        amount: orderData.amount,
-        currency: orderData.currency || 'INR',
-        name: 'TaskForge Escrow',
-        description: `Payment for: ${task.title}`,
-        order_id: orderData.id,
-        prefill: {
-          name: user?.user_metadata?.full_name || 'Client',
-          email: user?.email || '',
-        },
-        notes: { task_id: task.id },
-        theme: { color: '#6366f1' },
-        handler: async function (response) {
-          try {
-            const verifyData = await verifyPayment(
-              response.razorpay_payment_id,
-              response.razorpay_order_id,
-              response.razorpay_signature
-            );
-            if (verifyData.status === 'success') {
-              setApproved(true);
-              sendMessage('SYSTEM NOTIFICATION: ✅ Payment verified! Funds will be transferred to the freelancer\'s registered payout account within 2-3 business days.');
-            } else {
-              alert('Payment verification failed: ' + verifyData.message);
-            }
-          } catch (err) {
-            console.error(err);
-            alert('Error verifying payment.');
-          }
-        },
-      };
-
-      const rzp = new window.Razorpay(options);
-      rzp.on('payment.failed', (r) => alert('Payment Failed: ' + r.error.description));
-      rzp.open();
+      setApproved(true);
+      sendMessage('SYSTEM NOTIFICATION: ✅ Payment approved (MOCK MODE)! Funds will be transferred to the freelancer\'s registered payout account.');
 
     } catch (error) {
       console.error(error);
-      alert('Could not initialize payment: ' + error.message);
+      alert('Could not process approval: ' + error.message);
     } finally {
       setIsApproving(false);
     }
