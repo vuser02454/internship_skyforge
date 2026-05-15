@@ -1,6 +1,6 @@
 # 🚀 TaskForge — Micro-Task Freelancing Platform
 
-> A full-stack freelancing platform connecting clients with high-performance freelance talent for micro-tasks. Built with React, Flask, Supabase, and TailwindCSS.
+> A full-stack freelancing platform connecting clients with high-performance freelance talent for micro-tasks. Built with React, Supabase (Serverless), and TailwindCSS.
 
 ---
 
@@ -15,7 +15,6 @@
   - [1. Clone the Repository](#1-clone-the-repository)
   - [2. Supabase Setup](#2-supabase-setup)
   - [3. Frontend Setup](#3-frontend-setup)
-  - [4. Backend Setup](#4-backend-setup)
 - [Environment Variables](#environment-variables)
 - [Database Schema](#database-schema)
 - [Available Scripts](#available-scripts)
@@ -168,7 +167,6 @@ Ensure the following are installed on your system:
 
 - **Node.js** ≥ 18.x — [Download](https://nodejs.org/)
 - **npm** ≥ 9.x (comes with Node.js)
-- **Python** ≥ 3.9 — [Download](https://python.org/)
 - **Git** — [Download](https://git-scm.com/)
 - **Supabase Account** — [Sign up (free)](https://supabase.com/)
 
@@ -226,40 +224,6 @@ The frontend will be available at:
 - **Local:** `http://localhost:5173`
 - **Network:** `http://your-ip:5173` (when using `--host`)
 
-### 4. Backend Setup
-
-```bash
-# Navigate to backend directory
-cd backend
-
-# Create virtual environment
-python -m venv venv
-
-# Activate virtual environment
-# Windows:
-venv\Scripts\activate
-# macOS/Linux:
-source venv/bin/activate
-
-# Install dependencies
-pip install -r requirements.txt
-```
-
-Create a `.env` file inside the `backend/` directory:
-
-```env
-SUPABASE_URL=https://your-project-id.supabase.co
-SUPABASE_SERVICE_KEY=your-service-role-key-here
-```
-
-Start the Flask server:
-
-```bash
-python app.py
-```
-
-The backend API will be running at `http://0.0.0.0:5000`.
-
 ---
 
 ## Environment Variables
@@ -271,14 +235,7 @@ The backend API will be running at `http://0.0.0.0:5000`.
 | `VITE_SUPABASE_URL` | Your Supabase project URL | `https://abc123.supabase.co` |
 | `VITE_SUPABASE_ANON_KEY` | Supabase anonymous/public key | `eyJhbGciOi...` |
 
-### Backend (`backend/.env`)
-
-| Variable | Description | Example |
-|---|---|---|
-| `SUPABASE_URL` | Your Supabase project URL | `https://abc123.supabase.co` |
-| `SUPABASE_SERVICE_KEY` | Supabase service role key (**keep secret!**) | `eyJhbGciOi...` |
-
-> ⚠️ **Never commit `.env` files to version control.** Both `.env.local` and `backend/.env` should be listed in `.gitignore`.
+> ⚠️ **Never commit `.env` files to version control.** `.env.local` should be listed in `.gitignore`.
 
 ---
 
