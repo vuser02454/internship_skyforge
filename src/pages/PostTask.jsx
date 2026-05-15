@@ -27,6 +27,11 @@ export default function PostTask() {
       const templates = {
         'UI/UX Design': `We are looking for an experienced UI/UX designer to help us with ${title}. \n\nKey Deliverables:\n- Wireframes and high-fidelity mockups\n- Interactive prototypes\n- Design system assets\n\nRequirements:\n- Proven track record in designing user-centric interfaces\n- Proficiency in Figma\n- Strong understanding of modern design principles.`,
         'Web Development': `We are seeking a skilled Web Developer to build ${title}. \n\nKey Deliverables:\n- Clean, efficient, and well-documented code\n- Responsive and mobile-friendly layout\n- Integration with our existing backend APIs\n\nRequirements:\n- Strong experience with modern JavaScript frameworks\n- Familiarity with Tailwind CSS\n- Good communication skills.`,
+        'Software Development': `We need a software engineer for ${title}. \n\nKey Deliverables:\n- Robust backend/frontend architecture\n- Scalable code deployment\n\nRequirements:\n- Strong algorithmic and system design skills\n- Problem-solving mindset.`,
+        'Content Writing': `We are looking for a talented writer for ${title}. \n\nKey Deliverables:\n- Engaging, SEO-optimized content\n- Plagiarism-free and well-researched material\n\nRequirements:\n- Exceptional grammar and writing skills\n- Experience in our specific niche.`,
+        'Graphic Design': `We need a creative Graphic Designer to help with ${title}. \n\nKey Deliverables:\n- High-resolution visual assets\n- Source files (AI/PSD)\n\nRequirements:\n- Expert in Adobe Creative Suite\n- Strong creative portfolio.`,
+        'Video Editing': `We are looking for a Video Editor for ${title}. \n\nKey Deliverables:\n- High-quality, engaging video edits\n- Color grading and audio syncing\n\nRequirements:\n- Proficiency in Premiere Pro or Final Cut\n- Strong storytelling skills.`,
+        'Digital Marketing': `We need a marketing expert to handle ${title}. \n\nKey Deliverables:\n- Comprehensive marketing strategy\n- Campaign setup and tracking\n\nRequirements:\n- Proven ROI in past campaigns\n- Expertise in Ads and analytics.`,
       };
       const defaultTemplate = `We are looking for a professional freelancer to help us with ${title}. \n\nKey Deliverables:\n- High quality output delivered on time\n- Regular progress updates\n\nRequirements:\n- Proven experience in this specific field\n- Excellent communication skills\n- Portfolio of past work.`;
       
@@ -164,8 +169,16 @@ export default function PostTask() {
 >
 <option>UI/UX Design</option>
 <option>Web Development</option>
+<option>Software Development</option>
+<option>Graphic Design</option>
+<option>Video Editing</option>
+<option>Digital Marketing</option>
 <option>Content Writing</option>
+<option>SEO Strategy</option>
+<option>Virtual Assistant</option>
 <option>Data Entry</option>
+<option>Translation</option>
+<option>Other</option>
 </select>
 </div>
 <div className="space-y-2 col-span-2">
