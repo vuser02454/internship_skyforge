@@ -21,6 +21,12 @@ export default function TaskDetail() {
   const [task, setTask] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  
+  // Update state
+  const [updates, setUpdates] = useState([]);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+  const [updateForm, setUpdateForm] = useState({});
+  const [isUpdating, setIsUpdating] = useState(false);
 
   // State for application
   const [pitch, setPitch] = useState('');
@@ -36,24 +42,118 @@ export default function TaskDetail() {
 
   useEffect(() => {
     if (!id) return;
-    const fetchTask = async () => {
+    
+    const fetchTaskAndUpdates = async () => {
       setLoading(true);
-      const { data, error } = await supabase
+      // Fetch task
+      const { data: taskData, error: taskError } = await supabase
         .from('tasks')
         .select('*, client:profiles!tasks_client_id_fkey(full_name, email, avatar_url)')
         .eq('id', id)
         .single();
         
-      if (error) {
-        console.error('Error fetching task:', error);
+      if (taskError) {
+        console.error('Error fetching task:', taskError);
         setError('Task not found.');
       } else {
-        setTask(data);
+        setTask(taskData);
+        setUpdateForm({
+          title: taskData.title || '',
+          description: taskData.description || '',
+          budget: taskData.budget || '',
+          deadline: taskData.deadline || '',
+          category: taskData.category || '',
+          status: taskData.status || 'open',
+          attachment_url: taskData.attachment_url || ''
+        });
       }
+
+      // Fetch updates
+      const { data: updateData } = await supabase
+        .from('task_updates')
+        .select('*')
+        .eq('task_id', id)
+        .order('created_at', { ascending: false });
+        
+      if (updateData) setUpdates(updateData);
+      
       setLoading(false);
     };
-    fetchTask();
+    
+    fetchTaskAndUpdates();
+
+    // Realtime subscriptions
+    const taskSub = supabase.channel(`public:tasks:id=eq.${id}`)
+      .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'tasks', filter: `id=eq.${id}` }, (payload) => {
+        setTask(prev => ({ ...prev, ...payload.new }));
+      }).subscribe();
+
+    const updatesSub = supabase.channel(`public:task_updates:task_id=eq.${id}`)
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'task_updates', filter: `task_id=eq.${id}` }, (payload) => {
+        setUpdates(prev => [payload.new, ...prev]);
+      }).subscribe();
+
+    return () => {
+      supabase.removeChannel(taskSub);
+      supabase.removeChannel(updatesSub);
+    };
   }, [id]);
+
+  const handleUpdateChange = (e) => {
+    const { name, value } = e.target;
+    setUpdateForm(prev => ({ ...prev, [name]: value }));
+  };
+
+  const submitTaskUpdate = async () => {
+    setIsUpdating(true);
+    try {
+      const changes = [];
+      const updatedFields = {};
+
+      // Check what changed
+      Object.keys(updateForm).forEach(key => {
+        if (updateForm[key] !== task[key] && !(updateForm[key] === '' && !task[key])) {
+          updatedFields[key] = updateForm[key];
+          changes.push({
+            task_id: id,
+            updated_by: user.id,
+            field_changed: key,
+            old_value: String(task[key] || ''),
+            new_value: String(updateForm[key] || '')
+          });
+        }
+      });
+
+      if (changes.length === 0) {
+        setIsUpdateModalOpen(false);
+        setIsUpdating(false);
+        return;
+      }
+
+      // Update task
+      const { error: taskUpdateError } = await supabase
+        .from('tasks')
+        .update(updatedFields)
+        .eq('id', id);
+
+      if (taskUpdateError) throw taskUpdateError;
+
+      // Insert updates history
+      const { error: historyError } = await supabase
+        .from('task_updates')
+        .insert(changes);
+
+      if (historyError) throw historyError;
+
+      // Optimistic UI update handled by realtime subscription
+      setIsUpdateModalOpen(false);
+    } catch (err) {
+      console.error(err);
+      alert('Failed to update task: ' + err.message);
+    } finally {
+      setIsUpdating(false);
+    }
+  };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -105,10 +205,22 @@ export default function TaskDetail() {
 
   return (
     <main className="pt-24 pb-stack-lg px-gutter max-w-container-max mx-auto">
-      <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-primary font-bold hover:underline mb-6">
-        <span className="material-symbols-outlined">arrow_back</span>
-        Back to Tasks
-      </button>
+      <div className="flex justify-between items-center mb-6">
+        <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-primary font-bold hover:underline">
+          <span className="material-symbols-outlined">arrow_back</span>
+          Back to Tasks
+        </button>
+        
+        {isOwner && task.status === 'open' && (
+          <button 
+            onClick={() => setIsUpdateModalOpen(true)}
+            className="flex items-center gap-2 bg-primary-container text-on-primary-container px-4 py-2 rounded-lg font-bold text-label-caps shadow-sm hover:scale-105 transition-transform"
+          >
+            <span className="material-symbols-outlined text-[18px]">edit</span>
+            Update Task
+          </button>
+        )}
+      </div>
 
 <div className="flex flex-col lg:flex-row gap-gutter">
 {/* Left Column: Task Details */}
@@ -163,7 +275,38 @@ export default function TaskDetail() {
     </a>
   </div>
 )}
+  </div>
+)}
 </section>
+
+{/* Update History Timeline */}
+{updates.length > 0 && (
+  <section className="mt-8 pt-8 border-t border-outline-variant/30">
+    <h3 className="text-title-lg font-title-lg text-on-surface mb-6 flex items-center gap-2">
+      <span className="material-symbols-outlined text-primary">update</span>
+      Update History
+    </h3>
+    <div className="space-y-6 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-outline-variant/30 before:to-transparent">
+      {updates.map((update, idx) => (
+        <div key={update.id} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+          <div className="flex items-center justify-center w-10 h-10 rounded-full border-4 border-surface bg-primary-container text-on-primary-container shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-sm z-10">
+            <span className="material-symbols-outlined text-[16px]">{update.field_changed === 'budget' ? 'payments' : update.field_changed === 'deadline' ? 'event' : 'edit_note'}</span>
+          </div>
+          <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-xl border border-outline-variant/20 bg-surface-container-lowest shadow-sm">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-label-caps font-bold text-primary capitalize">{update.field_changed} updated</span>
+              <span className="text-[10px] text-on-surface-variant">{timeAgo(update.created_at)}</span>
+            </div>
+            <p className="text-body-sm text-on-surface-variant">
+              Changed from <span className="line-through opacity-70">{update.old_value || 'None'}</span> to <strong className="text-on-surface">{update.new_value || 'None'}</strong>
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+)}
+
 </div>
 
 {/* Internal PDF Reader Simulation (if they uploaded a PDF) */}
@@ -311,5 +454,77 @@ export default function TaskDetail() {
 </div>
 
 </main>
+
+{/* Update Task Modal */}
+{isUpdateModalOpen && (
+  <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
+    <div className="bg-surface w-full max-w-2xl rounded-2xl shadow-2xl border border-outline-variant/30 flex flex-col max-h-[90vh] animate-in slide-in-from-bottom-8 duration-300">
+      <div className="flex items-center justify-between p-6 border-b border-outline-variant/20">
+        <h2 className="text-headline-sm font-bold text-primary flex items-center gap-2">
+          <span className="material-symbols-outlined">edit_square</span>
+          Update Task Conditions
+        </h2>
+        <button onClick={() => setIsUpdateModalOpen(false)} className="text-on-surface-variant hover:text-error transition-colors">
+          <span className="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      
+      <div className="p-6 overflow-y-auto space-y-6 flex-1">
+        <div className="space-y-2">
+          <label className="text-label-caps text-on-surface-variant">Project Title</label>
+          <input name="title" value={updateForm.title} onChange={handleUpdateChange} className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-3 text-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" />
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <label className="text-label-caps text-on-surface-variant">Budget (₹)</label>
+            <input name="budget" type="number" value={updateForm.budget} onChange={handleUpdateChange} className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-3 text-body-md focus:border-primary outline-none" />
+          </div>
+          <div className="space-y-2">
+            <label className="text-label-caps text-on-surface-variant">Deadline</label>
+            <input name="deadline" type="date" value={updateForm.deadline} onChange={handleUpdateChange} className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-3 text-body-md focus:border-primary outline-none" />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <label className="text-label-caps text-on-surface-variant">Category</label>
+            <select name="category" value={updateForm.category} onChange={handleUpdateChange} className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-3 text-body-md focus:border-primary outline-none">
+              <option value="Web Development">Web Development</option>
+              <option value="UI/UX Design">UI/UX Design</option>
+              <option value="Content Writing">Content Writing</option>
+              <option value="Data Entry">Data Entry</option>
+              <option value="General">General</option>
+            </select>
+          </div>
+          <div className="space-y-2">
+            <label className="text-label-caps text-on-surface-variant">Status</label>
+            <select name="status" value={updateForm.status} onChange={handleUpdateChange} className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-3 text-body-md focus:border-primary outline-none">
+              <option value="open">Open</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <label className="text-label-caps text-on-surface-variant">Detailed Description & Requirements</label>
+          <textarea name="description" value={updateForm.description} onChange={handleUpdateChange} rows="5" className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-4 text-body-md focus:border-primary outline-none resize-none"></textarea>
+        </div>
+
+        <div className="space-y-2">
+          <label className="text-label-caps text-on-surface-variant">Attachment Link (Optional)</label>
+          <input name="attachment_url" type="url" placeholder="https://..." value={updateForm.attachment_url} onChange={handleUpdateChange} className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-3 text-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" />
+        </div>
+      </div>
+
+      <div className="p-6 border-t border-outline-variant/20 bg-surface-container-lowest flex justify-end gap-3 rounded-b-2xl">
+        <button onClick={() => setIsUpdateModalOpen(false)} className="px-6 py-2.5 font-bold text-on-surface-variant hover:bg-surface-variant rounded-lg transition-colors">Cancel</button>
+        <button onClick={submitTaskUpdate} disabled={isUpdating} className="px-8 py-2.5 bg-primary text-on-primary font-bold rounded-lg shadow-md hover:scale-105 transition-transform disabled:opacity-50 flex items-center gap-2">
+          {isUpdating ? <><span className="material-symbols-outlined animate-spin text-[18px]">sync</span> Saving...</> : 'Save Changes'}
+        </button>
+      </div>
+    </div>
+  </div>
+)}
   );
 }
