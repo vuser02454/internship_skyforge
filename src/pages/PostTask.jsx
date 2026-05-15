@@ -32,6 +32,19 @@ export default function PostTask() {
         'Graphic Design': `We need a creative Graphic Designer to help with ${title}. \n\nKey Deliverables:\n- High-resolution visual assets\n- Source files (AI/PSD)\n\nRequirements:\n- Expert in Adobe Creative Suite\n- Strong creative portfolio.`,
         'Video Editing': `We are looking for a Video Editor for ${title}. \n\nKey Deliverables:\n- High-quality, engaging video edits\n- Color grading and audio syncing\n\nRequirements:\n- Proficiency in Premiere Pro or Final Cut\n- Strong storytelling skills.`,
         'Digital Marketing': `We need a marketing expert to handle ${title}. \n\nKey Deliverables:\n- Comprehensive marketing strategy\n- Campaign setup and tracking\n\nRequirements:\n- Proven ROI in past campaigns\n- Expertise in Ads and analytics.`,
+        'Copywriting': `We require an expert copywriter to craft copy for ${title}. \n\nKey Deliverables:\n- Persuasive, conversion-focused copy\n- Brand-aligned tone of voice\n\nRequirements:\n- Experience in direct-response copywriting\n- Excellent grasp of consumer psychology.`,
+        'Data Analysis': `We need a Data Analyst to work on ${title}. \n\nKey Deliverables:\n- Data cleaning and processing\n- Comprehensive reporting and dashboards\n\nRequirements:\n- Proficiency in SQL, Python, or R\n- Experience with tools like Tableau or PowerBI.`,
+        'App Development': `Looking for an App Developer for ${title}. \n\nKey Deliverables:\n- Cross-platform or native app development\n- App store deployment and optimization\n\nRequirements:\n- Expertise in React Native, Flutter, iOS, or Android\n- Focus on performance and UI responsiveness.`,
+        'Logo Design': `We need a memorable brand identity for ${title}. \n\nKey Deliverables:\n- Vector logo concepts and revisions\n- Brand guidelines document\n\nRequirements:\n- Creative portfolio demonstrating logo design\n- Proficiency in Adobe Illustrator.`,
+        '3D Modeling': `We require a 3D Artist for ${title}. \n\nKey Deliverables:\n- High-poly and low-poly 3D models\n- Texturing and basic rigging\n\nRequirements:\n- Proficiency in Blender, Maya, or ZBrush\n- Strong understanding of lighting and materials.`,
+        'Audio Editing': `We are seeking an Audio Engineer/Editor for ${title}. \n\nKey Deliverables:\n- Noise reduction and audio enhancement\n- Mixing and mastering tracks\n\nRequirements:\n- Experience with Pro Tools, Audacity, or Logic Pro\n- Sharp ear for audio clarity.`,
+        'Blockchain Development': `We need a Blockchain Developer for ${title}. \n\nKey Deliverables:\n- Smart contract development and auditing\n- Web3 integration\n\nRequirements:\n- Deep knowledge of Solidity and Ethereum ecosystem\n- Strong understanding of cryptographic principles.`,
+        'System Administration': `Looking for a SysAdmin or DevOps engineer for ${title}. \n\nKey Deliverables:\n- Server setup and optimization\n- CI/CD pipeline configuration\n\nRequirements:\n- Strong Linux administration skills\n- Experience with AWS, Docker, and Kubernetes.`,
+        'Financial Consulting': `We need a Financial Expert for ${title}. \n\nKey Deliverables:\n- Financial forecasting and budgeting\n- Investment or expense analysis\n\nRequirements:\n- Certified CPA or CFA preferred\n- Strong experience in corporate finance.`,
+        'SEO Strategy': `We need an SEO Specialist to optimize ${title}. \n\nKey Deliverables:\n- Keyword research and competitor analysis\n- On-page and technical SEO audit\n\nRequirements:\n- Proven track record of improving search rankings\n- Proficiency with Ahrefs, SEMrush, or similar tools.`,
+        'Virtual Assistant': `Looking for a Virtual Assistant to handle ${title}. \n\nKey Deliverables:\n- Email management and scheduling\n- Administrative support\n\nRequirements:\n- Excellent organizational skills\n- Fluent English and professional communication.`,
+        'Data Entry': `We require a detail-oriented Data Entry Clerk for ${title}. \n\nKey Deliverables:\n- Accurate data input into spreadsheets/CRM\n- Data formatting and verification\n\nRequirements:\n- Fast typing speed with high accuracy\n- Proficiency in Excel/Google Sheets.`,
+        'Translation': `We need a Translator for ${title}. \n\nKey Deliverables:\n- Accurate, localized translation\n- Proofreading and editing of final text\n\nRequirements:\n- Native-level proficiency in target language\n- Cultural understanding of the local market.`
       };
       const defaultTemplate = `We are looking for a professional freelancer to help us with ${title}. \n\nKey Deliverables:\n- High quality output delivered on time\n- Regular progress updates\n\nRequirements:\n- Proven experience in this specific field\n- Excellent communication skills\n- Portfolio of past work.`;
       
@@ -170,13 +183,22 @@ export default function PostTask() {
 <option>UI/UX Design</option>
 <option>Web Development</option>
 <option>Software Development</option>
+<option>App Development</option>
+<option>Blockchain Development</option>
+<option>System Administration</option>
 <option>Graphic Design</option>
+<option>Logo Design</option>
+<option>3D Modeling</option>
 <option>Video Editing</option>
+<option>Audio Editing</option>
 <option>Digital Marketing</option>
-<option>Content Writing</option>
 <option>SEO Strategy</option>
+<option>Copywriting</option>
+<option>Content Writing</option>
 <option>Virtual Assistant</option>
 <option>Data Entry</option>
+<option>Data Analysis</option>
+<option>Financial Consulting</option>
 <option>Translation</option>
 <option>Other</option>
 </select>
