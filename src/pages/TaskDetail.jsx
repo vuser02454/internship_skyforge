@@ -206,7 +206,7 @@ export default function TaskDetail() {
   return (
     <>
     <main className="pt-24 pb-stack-lg px-gutter max-w-container-max mx-auto">
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center gap-4 mb-6">
         <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-primary font-bold hover:underline">
           <span className="material-symbols-outlined">arrow_back</span>
           Back to Tasks
@@ -215,7 +215,7 @@ export default function TaskDetail() {
         {isOwner && task.status === 'open' && (
           <button 
             onClick={() => setIsUpdateModalOpen(true)}
-            className="flex items-center gap-2 bg-primary-container text-on-primary-container px-4 py-2 rounded-lg font-bold text-label-caps shadow-sm hover:scale-105 transition-transform"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 bg-primary-container text-on-primary-container px-4 py-3 sm:py-2 rounded-lg font-bold text-label-caps shadow-sm hover:scale-[1.02] sm:hover:scale-105 transition-transform"
           >
             <span className="material-symbols-outlined text-[18px]">edit</span>
             Update Task
@@ -456,8 +456,8 @@ export default function TaskDetail() {
 
 {/* Update Task Modal */}
 {isUpdateModalOpen && (
-  <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
-    <div className="bg-surface w-full max-w-2xl rounded-2xl shadow-2xl border border-outline-variant/30 flex flex-col max-h-[90vh] animate-in slide-in-from-bottom-8 duration-300">
+  <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
+    <div className="bg-surface w-full max-w-2xl sm:rounded-2xl rounded-t-3xl shadow-2xl border-t sm:border border-outline-variant/30 flex flex-col max-h-[90vh] sm:max-h-[90vh] animate-in slide-in-from-bottom-full sm:slide-in-from-bottom-8 duration-300">
       <div className="flex items-center justify-between p-6 border-b border-outline-variant/20">
         <h2 className="text-headline-sm font-bold text-primary flex items-center gap-2">
           <span className="material-symbols-outlined">edit_square</span>
@@ -516,9 +516,9 @@ export default function TaskDetail() {
         </div>
       </div>
 
-      <div className="p-6 border-t border-outline-variant/20 bg-surface-container-lowest flex justify-end gap-3 rounded-b-2xl">
-        <button onClick={() => setIsUpdateModalOpen(false)} className="px-6 py-2.5 font-bold text-on-surface-variant hover:bg-surface-variant rounded-lg transition-colors">Cancel</button>
-        <button onClick={submitTaskUpdate} disabled={isUpdating} className="px-8 py-2.5 bg-primary text-on-primary font-bold rounded-lg shadow-md hover:scale-105 transition-transform disabled:opacity-50 flex items-center gap-2">
+      <div className="p-4 sm:p-6 border-t border-outline-variant/20 bg-surface-container-lowest flex flex-col sm:flex-row justify-end gap-3 sm:rounded-b-2xl">
+        <button onClick={() => setIsUpdateModalOpen(false)} className="w-full sm:w-auto px-6 py-3 sm:py-2.5 font-bold text-on-surface-variant hover:bg-surface-variant rounded-lg transition-colors order-2 sm:order-1">Cancel</button>
+        <button onClick={submitTaskUpdate} disabled={isUpdating} className="w-full sm:w-auto px-8 py-3 sm:py-2.5 bg-primary text-on-primary font-bold rounded-lg shadow-md hover:scale-[1.02] sm:hover:scale-105 transition-transform disabled:opacity-50 flex items-center justify-center gap-2 order-1 sm:order-2">
           {isUpdating ? <><span className="material-symbols-outlined animate-spin text-[18px]">sync</span> Saving...</> : 'Save Changes'}
         </button>
       </div>
