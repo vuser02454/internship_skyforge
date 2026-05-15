@@ -12,6 +12,7 @@ export default function Settings() {
   const [skills, setSkills] = useState([]);
   const [newSkill, setNewSkill] = useState('');
   const [isAddingSkill, setIsAddingSkill] = useState(false);
+  const [marketingPush, setMarketingPush] = useState(false);
 
   const [email, setEmail] = useState('');
   const [showEmailUpdate, setShowEmailUpdate] = useState(false);
@@ -100,6 +101,7 @@ export default function Settings() {
           setFullName(data.full_name || '');
           setBio(data.bio || '');
           setSkills(data.skills || []);
+          setMarketingPush(data.marketing_push || false);
           if (data.avatar_url) {
             setAvatar(data.avatar_url);
           }
@@ -118,7 +120,8 @@ export default function Settings() {
         .update({ 
            full_name: fullName,
            bio: bio,
-           skills: skills
+           skills: skills,
+           marketing_push: marketingPush
         })
         .eq('id', user.id);
       
@@ -297,6 +300,24 @@ export default function Settings() {
                     ) : (
                       <button onClick={() => setIsAddingSkill(true)} className="border border-dashed border-outline text-on-surface-variant px-3 py-1 rounded-full text-label-caps font-label-caps hover:bg-surface-container transition-colors">+ Add Skill</button>
                     )}
+                  </div>
+
+                  {/* Suggested Skills */}
+                  <div className="mt-4 pt-4 border-t border-outline-variant/20">
+                    <p className="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider mb-3">Suggested Skills</p>
+                    <div className="flex flex-wrap gap-2">
+                      {["React", "Node.js", "Figma", "Copywriting", "SEO", "Python", "Marketing", "Data Analysis", "Video Editing"]
+                        .filter(s => !skills.includes(s))
+                        .map(skill => (
+                          <button 
+                            key={skill}
+                            onClick={() => setSkills([...skills, skill])}
+                            className="text-xs px-3 py-1.5 rounded-full border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all active:scale-95"
+                          >
+                            + {skill}
+                          </button>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -529,7 +550,12 @@ export default function Settings() {
                 <div className="h-px bg-outline-variant my-4"></div>
                 <div className="flex items-center justify-between">
                   <span className="text-body-sm font-bold text-on-surface">Marketing Push</span>
-                  <input className="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary accent-primary" type="checkbox" />
+                  <input 
+                    checked={marketingPush}
+                    onChange={(e) => setMarketingPush(e.target.checked)}
+                    className="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary accent-primary cursor-pointer transition-all" 
+                    type="checkbox" 
+                  />
                 </div>
               </div>
             </div>
