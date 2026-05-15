@@ -204,6 +204,7 @@ export default function TaskDetail() {
   const isClientRole = user?.user_metadata?.user_role === 'client';
 
   return (
+    <>
     <main className="pt-24 pb-stack-lg px-gutter max-w-container-max mx-auto">
       <div className="flex justify-between items-center mb-6">
         <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-primary font-bold hover:underline">
@@ -273,8 +274,6 @@ export default function TaskDetail() {
       </div>
       <span className="material-symbols-outlined text-on-surface-variant ml-2 group-hover:text-primary transition-colors">open_in_new</span>
     </a>
-  </div>
-)}
   </div>
 )}
 </section>
@@ -526,5 +525,6 @@ export default function TaskDetail() {
     </div>
   </div>
 )}
+    </>
   );
 }
