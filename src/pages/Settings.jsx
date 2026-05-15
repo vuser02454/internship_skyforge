@@ -212,6 +212,10 @@ export default function Settings() {
   const removeSkill = (skillToRemove) => {
     setSkills(skills.filter(s => s !== skillToRemove));
   };
+
+  const SUGGESTED_SKILLS = ["React", "Node.js", "Figma", "Copywriting", "SEO", "Python", "Marketing", "Data Analysis", "Video Editing", "TypeScript", "Tailwind CSS", "Graphic Design", "Content Writing", "Virtual Assistant", "Data Entry", "Social Media", "App Development", "React Native", "WordPress", "Shopify", "UI/UX", "Illustration", "Digital Marketing", "Next.js", "Machine Learning", "Customer Support", "Animation"];
+  const filteredSuggestions = SUGGESTED_SKILLS.filter(s => !skills.includes(s));
+
   return (
     <main className="flex-1 lg:ml-64 pt-24 pb-12 px-gutter min-h-screen w-full overflow-x-hidden">
       <div className="max-w-4xl mx-auto">
@@ -306,9 +310,7 @@ export default function Settings() {
                   <div className="mt-4 pt-4 border-t border-outline-variant/20">
                     <p className="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider mb-3">Suggested Skills</p>
                     <div className="flex flex-wrap gap-2">
-                      {["React", "Node.js", "Figma", "Copywriting", "SEO", "Python", "Marketing", "Data Analysis", "Video Editing", "TypeScript", "Tailwind CSS", "Graphic Design", "Content Writing", "Virtual Assistant", "Data Entry", "Social Media", "App Development", "React Native", "WordPress", "Shopify", "UI/UX", "Illustration", "Digital Marketing", "Next.js", "Machine Learning", "Customer Support", "Animation"]}
-                        .filter(s => !skills.includes(s))
-                        .map(skill => (
+                      {filteredSuggestions.map(skill => (
                           <button 
                             key={skill}
                             onClick={() => setSkills([...skills, skill])}
